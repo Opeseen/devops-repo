@@ -1,4 +1,4 @@
-# vproapp Pod and SVC and LoadBalancer
+# vproapp Pod And SVC And LoadBalancer
 apiVersion: v1
 kind: Pod
 metadata:
