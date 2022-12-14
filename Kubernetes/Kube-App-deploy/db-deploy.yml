@@ -17,7 +17,7 @@ spec:
       - name: vprodb
         image: opeseen/vprofiledb:V1
         args:
-          - "ignore-db-dir=lost+found"
+          - "--ignore-db-dir=lost+found"
         volumeMounts:
           - mountPath: /var/lib/mysql
             name: vpro-db-data
@@ -35,11 +35,11 @@ spec:
                 name: vproapp-secret
                 key: db-pass
       nodeSelector:
-        zone: us-east-2a
+        zone: us-east-1a
       volumes:
         - name: vpro-db-data
           awsElasticBlockStore:
-            volumeID: vol-0916626d10bb1b8fd
+            volumeID: vol-0f35b5d8d3bf61fde
             fsType: ext4
 
 ---
