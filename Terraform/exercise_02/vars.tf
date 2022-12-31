@@ -1,11 +1,11 @@
 variable "REGION" {
   type        = string
-  default     = "us-east-2"
+  default     = "us-east-1"
   description = "VARIABLES_FILES"
 }
 
 variable "ZONE" {
-  default = "us-east-2a"
+  default = "us-east-1a"
 }
 
 variable "AMIS" {
