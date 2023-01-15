@@ -1,6 +1,6 @@
 resource "aws_key_pair" "amazonLinux" {
   key_name   = "web02-key"
-  public_key = file("web02-key.pub")
+  public_key = file("web02_key.pub")
 }
 
 resource "aws_instance" "amazonLinux" {
@@ -28,7 +28,7 @@ resource "aws_instance" "amazonLinux" {
 
   connection {
     user        = var.USER
-    private_key = file("web02-key")
+    private_key = file("web02_key")
     host        = self.public_ip
   }
 
