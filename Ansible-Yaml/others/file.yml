@@ -1,0 +1,63 @@
+- name: Using the File Module
+  hosts: all
+  become: yes
+  vars:
+    ntp_path: /etc/ntp.conf
+  tasks:
+    - name: Baner File SetUP
+      copy:
+        content: "This {{ansible_distribution}} OS is Managed by Ansible.\n"
+        dest: /etc/motd
+
+    - name: Deploy NTP Conf File for RedHat without variables
+      template:
+        src: templates/ntp_aws.conf.j2
+        dest: "{[ntp_path}}"
+      when: ansible_distribution == 'Amazon'
+
+    - name: Deploy NTP Conf File for Ubuntu without variables
+      template:
+        src: templates/ntp_debian.conf.j2
+        dest: "{{ntp_path}}"
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: Deploy NTP Conf File For "{{ansible_os_family}}" Using variables
+      template:
+        src: templates/ntp_aws.conf.j2
+        dest: "{{ntp_path}}"
+      when: ansible_distribution == 'Amazon'
+
+    - name: Deploy NTP Conf File For "{{ansible_os_family}}" Using variables
+      template:
+        src: templates/ntp_debian.conf.j2
+        dest: "{{ntp_path}}"
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: Create a Directory in "{{ansible_os_family}}" If it doesn't exist
+      file:
+        path: /tmp/devOps
+        state: directory
+        mode: 0755
+        owner: user2
+        group: devops
+      notify:
+        - Restart NTPD
+        - Restart NTP
+  
+  handlers:
+    - name: Restart NTPD
+      service:
+        name: ntpd
+        state: restarted
+        enabled: yes
+      when: ansible_distribution == 'Amazon'
+
+    - name: Restart NTP
+      service:
+        name: ntp
+        state: restarted
+        enabled: yes
+      when: ansible_distribution == 'Ubuntu'
+
+
+

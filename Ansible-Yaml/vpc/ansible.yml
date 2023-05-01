@@ -1,0 +1,17 @@
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  tasks:
+    - name: Create EC2 Key Pair
+      ec2_key:
+        name: sample
+        region: us-east-1
+      register: keyout
+
+    - debug:
+        var: keyout
+    - name: Store Login Key
+      copy:
+        content: "{{keyout.key.private_key}}"
+        dest: ./sample_key.pem
+      when: keyout.changed

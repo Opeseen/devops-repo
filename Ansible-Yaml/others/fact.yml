@@ -1,0 +1,12 @@
+- name: Learning Facts Variables
+  hosts: all
+  tasks:
+    - name: Print OS Name
+      debug:
+        var: ansible_distribution
+    - name: Print Another
+      debug:
+        var: hw_timestamp_filters.ipv4.address
+    - name: Print Memory Info
+      debug:
+        var: ansible_memory_mb.real.free
