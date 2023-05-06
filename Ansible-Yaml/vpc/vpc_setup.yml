@@ -79,3 +79,18 @@
        - igw_out.gateway_id
        - pubRT_out.route_table.id
        - pubRT_out.route_table.owner_id
+
+    - set_fact:
+        vpcid: "{{vpcout.vpc.id}}"
+        pubsub1id: "{{pubsub1_out.subnet.id}}"
+        pubsub2id: "{{pubsub2_out.subnet.id}}"
+        pubsub3id: "{{pubsub3_out.subnet.id}}"
+        igwid: "{{igw_out.gateway_id}}"
+        pubRTid: "{{pubRT_out.route_table.id}}"
+        pubRTOwner: "{{pubRT_out.route_table.owner_id}}"
+        cacheable: yes
+    
+    - name: Create variables file for VPC output
+      copy:
+        content: "vpcid: {{vpcout.vpc.id}} \n pubsub1id: {{pubsub1_out.subnet.id}} \n pubsub2id: {{pubsub2_out.subnet.id}} \n pubsub3id: {{pubsub3_out.subnet.id}} \n igwid: {{igw_out.gateway_id} \n pubRTid: {{pubRT_out.route_table.id}} \n pubRTOwner: {{pubRT_out.route_table.owner_id}}"
+        dest: vars/output_vars
