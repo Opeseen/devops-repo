@@ -41,7 +41,7 @@
 
     - name: Create Bastion EC2 Instance
       ec2:
-        key_name: "sample"
+        key_name: "{{keyout.key.name}}"
         region: "{{region}}"
         instance_type: t2.micro
         image: "{{baston_ami}}"
