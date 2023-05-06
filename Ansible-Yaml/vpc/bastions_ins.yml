@@ -55,7 +55,7 @@
         count_tag:
           Name: Bastion_host
         group_id: "{{BastionSG_out.group_id}}"
-        vpc_subnet_id: "{{pubsub1id:}}"
+        vpc_subnet_id: "{{pubsub1id}}"
       register: BastionEC2_out
 
     - debug:
