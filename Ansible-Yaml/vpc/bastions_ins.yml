@@ -54,8 +54,8 @@
         exact_count: 1
         count_tag:
           Name: Bastion_host
-        group_id: sg-07bcc50a3f262a041
-        vpc_subnet_id: subnet-0d245493c5a47cd94
+        group_id: "{{BastionSG_out.group_id}}"
+        vpc_subnet_id: "{{pubsub1id:}}"
       register: BastionEC2_out
 
     - debug:
