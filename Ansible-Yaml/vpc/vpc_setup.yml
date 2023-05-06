@@ -24,27 +24,27 @@
           Name: vprofile-pubsub1
       register: pubsub1_out
 
-    - name: Create a Public subnet 1 in Zone 1
+    - name: Create a Public subnet 2 in Zone 2
       ec2_vpc_subnet:
         vpc_id: "{{vpcout.vpc.id}}"
-        az: "{{zone1}}"
-        cidr: "{{PubSub1Cidr}}"
+        az: "{{zone2}}"
+        cidr: "{{PubSub3Cidr}}"
         map_public: true
         region: "{{region}}"
         tags:
-          Name: vprofile-pubsub1
-      register: pubsub1_out
+          Name: vprofile-pubsub2
+      register: pubsub2_out
 
-    - name: Create a Public subnet 1 in Zone 1
+    - name: Create a Public subnet 3 in Zone 3
       ec2_vpc_subnet:
         vpc_id: "{{vpcout.vpc.id}}"
-        az: "{{zone1}}"
-        cidr: "{{PubSub1Cidr}}"
+        az: "{{zone3}}"
+        cidr: "{{PubSub3Cidr}}"
         map_public: true
         region: "{{region}}"
         tags:
-          Name: vprofile-pubsub1
-      register: pubsub1_out
+          Name: vprofile-pubsub3
+      register: pubsub3_out
 
     
       
