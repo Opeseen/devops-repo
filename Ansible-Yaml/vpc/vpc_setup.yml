@@ -19,6 +19,7 @@
         az: "{{zone1}}"
         cidr: "{{PubSub1Cidr}}"
         map_public: true
+        region: "{{region}}"
         tags:
           Name: vprofile-pubsub1
       register: pubsub1_out
