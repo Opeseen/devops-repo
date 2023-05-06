@@ -1,4 +1,4 @@
-vpc_name: "Vprofile-vpc"
+vpc_name: "vprofile-vpc"
 
 # VPC range
 vpcCidr: 172.20.0.0/16
