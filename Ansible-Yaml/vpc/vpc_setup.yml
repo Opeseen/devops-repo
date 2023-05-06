@@ -10,6 +10,7 @@
         name: "{{vpc_name}}"
         cidr_block: "{{vpcCidr}}"
         region: "{{region}}"
+        state: absent
         tenancy: default
       register: vpcout
 
@@ -20,6 +21,7 @@
         cidr: "{{PubSub1Cidr}}"
         map_public: true
         region: "{{region}}"
+        state: absent
         tags:
           Name: vprofile-pubsub1
       register: pubsub1_out
@@ -31,6 +33,7 @@
         cidr: "{{PubSub2Cidr}}"
         map_public: true
         region: "{{region}}"
+        state: absent
         tags:
           Name: vprofile-pubsub2
       register: pubsub2_out
@@ -42,6 +45,7 @@
         cidr: "{{PubSub3Cidr}}"
         map_public: true
         region: "{{region}}"
+        state: absent
         tags:
           Name: vprofile-pubsub3
       register: pubsub3_out
@@ -50,6 +54,7 @@
       ec2_vpc_igw:
         vpc_id: "{{vpcout.vpc.id}}"
         region: "{{region}}"
+        state: absent
         tags:
           Name: vprofile_igw
       register: igw_out
@@ -58,6 +63,7 @@
       ec2_vpc_route_table:
         vpc_id: "{{vpcout.vpc.id}}"
         region: "{{region}}"
+        state: absent
         subnets:
           - "{{pubsub1_out.subnet.id}}"
           - "{{pubsub2_out.subnet.id}}"
@@ -94,7 +100,3 @@
       copy:
         content: "vpcid: {{vpcout.vpc.id}} \n pubsub1id: {{pubsub1_out.subnet.id}} \n pubsub2id: {{pubsub2_out.subnet.id}} \n pubsub3id: {{pubsub3_out.subnet.id}} \n igwid: {{igw_out.gateway_id}} \n pubRTid: {{pubRT_out.route_table.id}} \n pubRTOwner: {{pubRT_out.route_table.owner_id}}"
         dest: vars/output_vars 
-      register: outcopy
-
-    - debug:
-        var: outcopy
