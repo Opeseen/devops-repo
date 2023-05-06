@@ -10,7 +10,7 @@
         name: "{{vpc_name}}"
         cidr_block: "{{vpcCidr}}"
         region: "{{region}}"
-        state: absent
+        # state: absent
         tenancy: default
       register: vpcout
 
