@@ -12,4 +12,7 @@
         region: "{{region}}"
         tenancy: default
       register: vpcout
+
+    - debug:
+        var: vpcout
     
