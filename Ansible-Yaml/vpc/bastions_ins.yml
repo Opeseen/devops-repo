@@ -42,9 +42,9 @@
         region: "{{region}}"
         instance_type: t2.micro
         image: "{{baston_ami}}"
-        wait: true
+        wait: yes
         wait_timeout: 300
-        tags:
+        instance_tags:
           Name: Bastion_host
         exact_count: 1
         count_tag:
