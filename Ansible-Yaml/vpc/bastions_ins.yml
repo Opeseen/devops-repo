@@ -37,6 +37,8 @@
             to_port: 22
             cidr_ip: 0.0.0.0/0
             rule_desc: allow all on port 22
+        tags:
+          Name: BastionbSG
       register: BastiobSG_out
 
     - name: Create Bastion EC2 Instance
