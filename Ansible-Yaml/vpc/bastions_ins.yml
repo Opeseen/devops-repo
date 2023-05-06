@@ -37,7 +37,7 @@
       register: BastiobSG_out
 
     - name: Create Bastion EC2 Instance
-      ec2_instance:
+      ec2:
         key_name: ./sample_key
         region: "{{region}}"
         instance_type: t2.micro
