@@ -17,5 +17,5 @@
         var: vpcout.id
 
     - debug:
-        msg: {{vpcout.id}}
+        msg: "{{vpcout.id}}"
     
