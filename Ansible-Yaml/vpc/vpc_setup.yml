@@ -14,8 +14,8 @@
       register: vpcout
 
     - debug:
-        var: vpcout.vpc.id
+        var: vpcout
 
     - debug:
-        msg: "{{vpcout.vpc.id}}"
+        msg: {{vpcout.vpc.id}}
     
