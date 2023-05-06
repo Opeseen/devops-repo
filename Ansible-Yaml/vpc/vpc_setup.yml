@@ -46,6 +46,15 @@
           Name: vprofile-pubsub3
       register: pubsub3_out
 
-    
+    - name: Create  Internet Gateway
+      ec2_vpc_igw:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        tags:
+          Name: vprofile_igw
+      register: igw_out
+
+    - debug:
+        var: igw_out   
       
     
