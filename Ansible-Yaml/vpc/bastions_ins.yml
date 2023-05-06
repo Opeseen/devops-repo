@@ -25,7 +25,7 @@
         mode: 0600
       when: keyout.changed
 
-    - name: Attach SG for bastion host
+    - name: Create SG for bastion host
       ec2_group:
         name: BastionSG
         description: Allow 22 from anywhere
@@ -38,8 +38,8 @@
             cidr_ip: 0.0.0.0/0
             rule_desc: allow all on port 22
         tags:
-          Name: BastionbSG
-      register: BastiobSG_out
+          Name: BastionSG
+      register: BastionSG_out
 
     - name: Create Bastion EC2 Instance
       ec2:
@@ -54,8 +54,8 @@
         exact_count: 1
         count_tag:
           Name: Bastion_host
-        group_id: "{{BastiobSG_out.group_id}}"
-        vpc_subnet_id: "{{pubsub1id}}"
+        group_id: sg-07bcc50a3f262a041
+        vpc_subnet_id: subnet-0d245493c5a47cd94
       register: BastionEC2_out
 
     - debug:
