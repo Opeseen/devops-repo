@@ -14,5 +14,5 @@
       register: vpcout
 
     - debug:
-        var: vpcout.id
+        var: "{{vpcout.id}}"
     
