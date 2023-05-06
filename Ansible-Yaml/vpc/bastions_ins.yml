@@ -23,7 +23,7 @@
       when: keyout.changed
 
     - name: Attach SG for bastion host
-      ec2_security_group:
+      ec2_group:
         name: BastionSG
         description: Allow 22 from anywhere
         region: "{{region}}"
