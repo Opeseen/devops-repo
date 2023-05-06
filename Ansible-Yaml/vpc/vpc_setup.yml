@@ -69,5 +69,8 @@
           Name: vprofile_pubRT
       register: pubRT_out
 
+    - debug:
+        var: pubRT_out
+
       
     
