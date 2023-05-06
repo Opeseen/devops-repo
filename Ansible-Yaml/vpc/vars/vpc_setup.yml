@@ -1,4 +1,4 @@
-vpc_name: "vprofile-vpc"
+vpc_name: vprofile-vpc
 
 # VPC range
 vpcCidr: 172.20.0.0/16
@@ -12,7 +12,7 @@ PrivSub2Cidr: '172.20.6.0/24'
 PrivSub3Cidr: '172.20.6.0/24'
 
 # Region Name
-region:'us-east-1'
+region: us-east-1
 
 # Zone names
 zone1: us-east-1a
