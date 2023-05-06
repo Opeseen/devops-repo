@@ -10,7 +10,6 @@
         name: "{{vpc_name}}"
         cidr_block: "{{vpcCidr}}"
         region: "{{region}}"
-        state: absent
         tenancy: default
       register: vpcout
 
@@ -21,7 +20,6 @@
         cidr: "{{PubSub1Cidr}}"
         map_public: true
         region: "{{region}}"
-        state: absent
         tags:
           Name: vprofile-pubsub1
       register: pubsub1_out
@@ -33,7 +31,6 @@
         cidr: "{{PubSub2Cidr}}"
         map_public: true
         region: "{{region}}"
-        state: absent
         tags:
           Name: vprofile-pubsub2
       register: pubsub2_out
@@ -45,7 +42,6 @@
         cidr: "{{PubSub3Cidr}}"
         map_public: true
         region: "{{region}}"
-        state: absent
         tags:
           Name: vprofile-pubsub3
       register: pubsub3_out
@@ -54,7 +50,6 @@
       ec2_vpc_igw:
         vpc_id: "{{vpcout.vpc.id}}"
         region: "{{region}}"
-        state: absent
         tags:
           Name: vprofile_igw
       register: igw_out
@@ -63,7 +58,6 @@
       ec2_vpc_route_table:
         vpc_id: "{{vpcout.vpc.id}}"
         region: "{{region}}"
-        state: absent
         subnets:
           - "{{pubsub1_out.subnet.id}}"
           - "{{pubsub2_out.subnet.id}}"
