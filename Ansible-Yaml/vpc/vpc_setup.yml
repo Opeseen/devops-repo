@@ -70,7 +70,12 @@
       register: pubRT_out
 
     - debug:
-        var: pubRT_out
-
-      
-    
+       var: "{{items}}"
+      loop:
+       - vpcout.vpc.id
+       - pubsub1_out.subnet.id
+       - pubsub2_out.subnet.id
+       - pubsub3_out.subnet.id
+       - igw_out.gateway_id
+       - pubRT_out.route_table.id
+       - pubRT_out.route_table.owner_id
