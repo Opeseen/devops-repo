@@ -50,7 +50,7 @@
         description: Allow 22 from anywhere
         region: "{{region}}"
         vpc_id: "{{vpcid}}"
-        purge_rules: false
+        purge_rules: no
         rules:
           - proto: tcp
             from_port: 22
@@ -72,7 +72,7 @@
         description: Allow traffic from itself
         region: "{{region}}"
         vpc_id: "{{vpcid}}"
-        purge_rules: false
+        purge_rules: no
         rules:
           - proto: all
             group_id: "{{BastionSG_out.group_id}}"
