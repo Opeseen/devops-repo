@@ -28,22 +28,55 @@
         mode: 0600
       when: keyout.changed
 
+    - name: Create SG for Load balancer
+      ec2_group:
+        name: vproELB_SG
+        description: Allow 80 from anywhere
+        region: "{{region}}"
+        vpc_id: "{{vpcid}}"
+        rules:
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: 0.0.0.0/0
+            rule_desc: allow all on port 80
+        tags:
+          Name: vproELB
+      register: vproELB_out
+
     - name: Create SG for Instance host
       ec2_group:
         name: BastionSG
         description: Allow 22 from anywhere
         region: "{{region}}"
         vpc_id: "{{vpcid}}"
+        purge_rules: false
         rules:
           - proto: tcp
             from_port: 22
             to_port: 22
             cidr_ip: 0.0.0.0/0
             rule_desc: allow all on port 22
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            group_id: "{{vproELB_out.group_id}}"
+            rule_desc: allow 80 from Load Balancer
         tags:
           Name: BastionSG
       register: BastionSG_out
 
+    - name: Update SG to allow traffic from itself
+      ec2_key:
+        name: BastionSG
+        description: Allow traffic from itself
+        region: "{{region}}"
+        vpc_id: "{{vpcid}}"
+        purge_rules: false
+        rules:
+          - proto: all
+            group_id: "{{BastionSG_out.group_id}}"
+            
     - name: Create Bastion EC2 Instance
       ec2:
         key_name: "{{keyout.key.name}}"
