@@ -60,8 +60,8 @@
           - proto: tcp
             from_port: 80
             to_port: 80
-            group_id: "{{vproELB_out.group_id}}"
-            rule_desc: allow 80 from Load Balancer
+            cidr_ip: 0.0.0.0/0
+            rule_desc: allow all on port 80
         tags:
           Name: BastionSG
       register: BastionSG_out
