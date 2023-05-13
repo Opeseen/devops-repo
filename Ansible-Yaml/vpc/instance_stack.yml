@@ -1,4 +1,4 @@
-- name: Setup vprofile bastion host
+- name: Setup vprofile stack
   hosts: localhost
   connection: local
   gather_facts: False
@@ -6,8 +6,11 @@
     - name: Import VPC Setup Variables
       include_vars: vpc_variables.yml
 
-    - name: Import Bastion Variables
+    - name: Import VPC Stack Variables
       include_vars: output_vars.yml
+    
+    - name: Import AMI Variables
+      include_vars: ami_vars.yml
 
     - name: Create Vprofile EC2 key
       ec2_key:
