@@ -74,13 +74,8 @@
         vpc_id: "{{vpcid}}"
         purge_rules: no
         rules:
-          - proto: tcp
-            from_port: 443
-            to_port: 443
-            cidr_ip: 0.0.0.0/0
-            rule_desc: allow all on port 80
-          # - proto: all
-            # group_id: "{{BastionSG_out.group_id}}"
+          - proto: all
+            group_id: "{{BastionSG_out.group_id}}"
 
     - name: Create Bastion EC2 Instance
       ec2:
