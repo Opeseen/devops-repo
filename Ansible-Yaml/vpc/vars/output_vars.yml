@@ -1,6 +1,6 @@
-vpcid: vpc-055ed52bf47d7ab8b
-pubsub1id: subnet-0b5762f6316b1aadf
-pubsub2id: subnet-0c86c13731723be02
-pubsub3id: subnet-034647947ffd5c85f
-igwid: igw-02502a741a1ef0e46
-pubRTid: rtb-059ad9597be9ce946
+vpcid: vpc-01e462ef0b9f401bc
+pubsub1id: subnet-0a38fa6971f527618
+pubsub2id: subnet-0ca0e5c42c989a6b9
+pubsub3id: subnet-01f6f4238de11e923
+igwid: igw-09e33933cf2f50321
+pubRTid: rtb-0e281d76da5fd46d6
