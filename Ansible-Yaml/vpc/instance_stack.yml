@@ -109,4 +109,4 @@
       register: app01_out
 
     - debug:
-        var: app01_out.tagged_instances[0].id
+        var: app01_out
