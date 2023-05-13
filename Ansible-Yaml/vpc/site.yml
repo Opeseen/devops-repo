@@ -1,2 +1,2 @@
 - import_playbook: vpc_setup.yml
-- import_playbook: bastions_ins.yml
+- import_playbook: instance_stack.yml

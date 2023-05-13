@@ -6,8 +6,8 @@
     - name: Import VPC Setup Variables
       include_vars: vpc_variables.yml
 
-    - name: Import VPC Stack Variables
-      include_vars: output_vars.yml
+    - name: Import VPC Stack Output Variables
+      include_vars: vpc_output_vars.yml
     
     - name: Import AMI Variables
       include_vars: ami_vars.yml
@@ -21,14 +21,14 @@
     - debug:
         var: keyout
 
-    - name: Store Login Key For bastion Host
+    - name: Store Login Key For Instance
       copy:
         content: "{{keyout.key.private_key}}"
         dest: ./sample_key.pem
         mode: 0600
       when: keyout.changed
 
-    - name: Create SG for bastion host
+    - name: Create SG for Instance host
       ec2_group:
         name: BastionSG
         description: Allow 22 from anywhere
