@@ -20,3 +20,6 @@ zone2: us-east-1b
 zone3: us-east-1c
 
 state: present
+
+# Bastion Vars 
+baston_ami: ami-0aa2b7722dc1b5612
