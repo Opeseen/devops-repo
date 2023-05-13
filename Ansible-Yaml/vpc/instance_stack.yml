@@ -88,10 +88,25 @@
         wait_timeout: 300
         exact_count: 1
         security_groups: "{{BastionSG_out.group_id}}"
-        vpc_subnet_id: "{{pubsub2id}}"
+        vpc_subnet_id: "{{pubsub1id}}"
         tags:
-          Name: Bastion_host
-      register: BastionEC2_out
+          Name: web01_host
+      register: web01_out
+
+    - name: Create Tomcat app01 Instance
+      ec2_instance:
+        key_name: "{{keyout.key.name}}"
+        region: "{{region}}"
+        instance_type: t2.micro
+        image_id: "{{tomcat_ami}}"
+        wait: yes
+        wait_timeout: 300
+        exact_count: 1
+        security_groups: "{{BastionSG_out.group_id}}"
+        vpc_subnet_id: "{{pubsub1id}}"
+        tags:
+          Name: app01_host
+      register: app01_out
 
     - debug:
-        var: BastionEC2_out
+        var: app01_out
