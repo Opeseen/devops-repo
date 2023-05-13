@@ -67,7 +67,7 @@
       register: BastionSG_out
 
     - name: Update SG to allow traffic from itself
-      ec2_key:
+      ec2_group:
         name: BastionSG
         description: Allow traffic from itself
         region: "{{region}}"
@@ -76,7 +76,7 @@
         rules:
           - proto: all
             group_id: "{{BastionSG_out.group_id}}"
-            
+
     - name: Create Bastion EC2 Instance
       ec2:
         key_name: "{{keyout.key.name}}"
