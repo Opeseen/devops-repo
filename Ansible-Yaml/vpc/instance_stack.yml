@@ -78,7 +78,7 @@
             group_id: "{{BastionSG_out.group_id}}"
             rule_desc: Allow traffic from within
 
-    - name: Create Bastion EC2 Instance
+    - name: Create Nginx web01 Instance
       ec2_instance:
         key_name: "{{keyout.key.name}}"
         region: "{{region}}"
