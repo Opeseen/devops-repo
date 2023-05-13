@@ -83,7 +83,7 @@
         key_name: "{{keyout.key.name}}"
         region: "{{region}}"
         instance_type: t2.micro
-        image_id: "{{baston_ami}}"
+        image_id: "{{nginx_ami}}"
         wait: yes
         wait_timeout: 300
         exact_count: 1
