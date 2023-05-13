@@ -79,7 +79,7 @@
             rule_desc: Allow traffic from within
 
     - name: Create Bastion EC2 Instance
-      ec2:
+      ec2_instance:
         key_name: "{{keyout.key.name}}"
         region: "{{region}}"
         instance_type: t2.micro
