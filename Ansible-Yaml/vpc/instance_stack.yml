@@ -109,4 +109,4 @@
       register: app01_out
 
     - debug:
-        var: app01_out
+        var: app01_out.instance_ids
