@@ -78,37 +78,55 @@
             group_id: "{{BastionSG_out.group_id}}"
             rule_desc: Allow traffic from within
 
-    - name: Create Nginx web01 Instance
+    - name: Create Tomcat app01 Instance
       ec2_instance:
         key_name: "{{keyout.key.name}}"
         region: "{{region}}"
         instance_type: t2.micro
-        image_id: "{{nginx_ami}}"
+        image_id: "{{tomcat_ami}}"
         wait: yes
         wait_timeout: 300
         exact_count: 1
         security_groups: "{{BastionSG_out.group_id}}"
         vpc_subnet_id: "{{pubsub1id}}"
         tags:
-          Name: web01_host
-      register: web01_out
+          Name: app01_host
+      register: app01_out
 
-    - name: Create Tomcat app01 Instance
+    - name: Create Nginx web01 Instance
       ec2:
         key_name: "{{keyout.key.name}}"
         region: "{{region}}"
         instance_type: t2.micro
-        image: "{{tomcat_ami}}"
+        image: "{{nginx_ami}}"
         wait: yes
         wait_timeout: 300
         instance_tags:
-          Name: app01_host
+          Name: web01_host
         exact_count: 1
         count_tag:
-          Name: app01_host
+          Name: web01_host
         group_id: "{{BastionSG_out.group_id}}"
         vpc_subnet_id: "{{pubsub1id}}"
-      register: app01_out
+      register: web01_out
 
     - debug:
-        var: app01_out
+        var: web01_out.tagged_instances[0].id
+
+    - local_action:
+        module: ec2_elblb
+        name: 'vprofile-elb'
+        region: "{{region}}"
+        state: present
+        instance_ids:
+          - "{{web01_out.tagged_instances[0].id}}"
+        purge_instance_ids: true
+        security_group_ids: "{{BastionSG_out.group_id}}"
+        subnets:
+         - "{{pubsub1id}}"
+         - "{{pubsub2id}}"
+         - "{{pubsub3id}}"
+        listeners:
+          - protocol: http
+            load_balancer_port: 80
+            instance_port: 80
