@@ -94,18 +94,20 @@
       register: web01_out
 
     - name: Create Tomcat app01 Instance
-      ec2_instance:
+      ec2:
         key_name: "{{keyout.key.name}}"
         region: "{{region}}"
         instance_type: t2.micro
-        image_id: "{{tomcat_ami}}"
+        image: "{{tomcat_ami}}"
         wait: yes
         wait_timeout: 300
-        exact_count: 1
-        security_groups: "{{BastionSG_out.group_id}}"
-        vpc_subnet_id: "{{pubsub1id}}"
-        tags:
+        instance_tags:
           Name: app01_host
+        exact_count: 1
+        count_tag:
+          Name: app01_host
+        group_id: "{{BastionSG_out.group_id}}"
+        vpc_subnet_id: "{{pubsub1id}}"
       register: app01_out
 
     - debug:
