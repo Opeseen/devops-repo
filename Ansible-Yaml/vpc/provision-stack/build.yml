@@ -17,7 +17,7 @@
     - name: Clone source code from github
       git:
         repo: 'https://github.com/devopshydclub/vprofile-project.git'
-        dest: ./Vprofile-repo
+        dest: ./Vprofile-repository
         version: vp-rem
       register: git_status
 
@@ -27,7 +27,7 @@
     - name: mvn install command to build artifact
       command: "mvn install"
       args:
-        chdir: Vprofile-repo
+        chdir: Vprofile-repository
       when: git_status.changed
       register: mvn_info
 
