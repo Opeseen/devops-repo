@@ -148,6 +148,15 @@
     
     - name: Insert/Update Inventory file provision-stack
       blockinfile:
+        path: ~/devops-repo/Ansible-Yaml/vpc/vars/output_vars.yml
+        block: |
+          web01 ansibble_host=okay
+          app01 ansible_host="Hello"
+          cntl ansible_host=127.0.0.1 ansible_connection=local
+
+
+    - name: Insert/Update Inventory file provision-stack
+      blockinfile:
         path: ~/devops-repo/Ansible-Yaml/vpc/provision-stack/inventory-vpro
         block: |
           web01 ansibble_host="{{web01_out.tagged_instances[0].private_ip}}"
