@@ -135,7 +135,7 @@
 
     - name: Insert/Update Hosts IP and Name in file
       blockinfile:
-        path: Ansible-Yaml/vpc/provision-stack/group_vars/hostsip
+        path: /root/devops-repo/Ansible-Yaml/vpc/provision-stack/group_vars/hostsip
         block: |
           web01_ip: "{{web01_out.tagged_instances[0].private_ip}}"
           app01_ip: "{{app01_out.tagged_instances[0].private_ip}}"
