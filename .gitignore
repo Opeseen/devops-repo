@@ -5,3 +5,4 @@ Python
 *web02_key.pub
 *.pem
 *.war
+*.sql
