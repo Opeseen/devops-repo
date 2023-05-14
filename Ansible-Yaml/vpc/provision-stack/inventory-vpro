@@ -10,7 +10,7 @@ web01
 app01
 
 [control]
-cntr
+cntl
 
 [stack_inst:children]
 websrvgrp
