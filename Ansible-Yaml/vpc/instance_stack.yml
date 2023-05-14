@@ -143,7 +143,7 @@
     - name: Copy Login key to provision_stack directory
       copy:
         src: ./sample_key.pem
-        dest: Ansible-Yaml/vpc/provision-stack/sample_key.pem
+        dest: ~/devops-repo/Ansible-Yaml/vpc/provision-stack/sample_key.pem
         mode: '0400'
     
     - name: Insert/Update Inventory file provision-stack
