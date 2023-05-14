@@ -114,7 +114,7 @@
         var: web01_out.tagged_instances[0].id
 
     - local_action:
-        module: ec2_elblb
+        module: ec2_elb_lb
         name: 'vprofile-elb'
         region: "{{region}}"
         state: present
