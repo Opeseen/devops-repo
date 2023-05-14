@@ -1,0 +1,110 @@
+2023-05-14 21:26:20,890 p=1985 u=root n=ansible | PLAY [Generate artifact, copy artifact & sql file to files directory] ***************
+2023-05-14 21:26:20,903 p=1985 u=root n=ansible | TASK [Gathering Facts] **************************************************************
+2023-05-14 21:26:22,269 p=1985 u=root n=ansible | ok: [localhost]
+2023-05-14 21:26:22,285 p=1985 u=root n=ansible | TASK [Install  jdk, maven, git] *****************************************************
+2023-05-14 21:26:35,390 p=1985 u=root n=ansible | ok: [localhost] => (item=git)
+2023-05-14 21:27:27,882 p=1985 u=root n=ansible | changed: [localhost] => (item=openjdk-8-jdk)
+2023-05-14 21:27:38,831 p=1985 u=root n=ansible | changed: [localhost] => (item=maven)
+2023-05-14 21:27:38,847 p=1985 u=root n=ansible | TASK [Clone source code from github] ************************************************
+2023-05-14 21:27:43,438 p=1985 u=root n=ansible | changed: [localhost]
+2023-05-14 21:27:43,450 p=1985 u=root n=ansible | TASK [debug] ************************************************************************
+2023-05-14 21:27:43,469 p=1985 u=root n=ansible | ok: [localhost] => {
+    "git_status": {
+        "after": "f65b59ede39da2cc9d1d94c4ba80b0a823511c49",
+        "before": null,
+        "changed": true,
+        "failed": false
+    }
+}
+2023-05-14 21:27:43,480 p=1985 u=root n=ansible | TASK [mvn install command to build artifact] ****************************************
+2023-05-14 21:28:27,221 p=1985 u=root n=ansible | changed: [localhost]
+2023-05-14 21:28:27,250 p=1985 u=root n=ansible | TASK [Copy artifacts to files directory] ********************************************
+2023-05-14 21:28:28,772 p=1985 u=root n=ansible | changed: [localhost] => (item=/root/devops-repo/Ansible-Yaml/vpc/provision-stack/Vprofile-repo/target/vprofile-v2.war)
+2023-05-14 21:28:28,783 p=1985 u=root n=ansible | TASK [Copy SQL file to files directory] *********************************************
+2023-05-14 21:28:29,203 p=1985 u=root n=ansible | changed: [localhost]
+2023-05-14 21:28:29,219 p=1985 u=root n=ansible | PLAY RECAP **************************************************************************
+2023-05-14 21:28:29,219 p=1985 u=root n=ansible | localhost                  : ok=7    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2023-05-14 21:33:40,014 p=7624 u=root n=ansible | PLAY [Generate artifact, copy artifact & sql file to files directory] ***************
+2023-05-14 21:33:40,043 p=7624 u=root n=ansible | TASK [Gathering Facts] **************************************************************
+2023-05-14 21:33:41,602 p=7624 u=root n=ansible | ok: [localhost]
+2023-05-14 21:33:41,618 p=7624 u=root n=ansible | TASK [Install  jdk, maven, git] *****************************************************
+2023-05-14 21:33:45,016 p=7624 u=root n=ansible | ok: [localhost] => (item=git)
+2023-05-14 21:33:47,448 p=7624 u=root n=ansible | ok: [localhost] => (item=openjdk-8-jdk)
+2023-05-14 21:33:49,897 p=7624 u=root n=ansible | ok: [localhost] => (item=maven)
+2023-05-14 21:33:49,909 p=7624 u=root n=ansible | TASK [Clone source code from github] ************************************************
+2023-05-14 21:33:51,004 p=7624 u=root n=ansible | ok: [localhost]
+2023-05-14 21:33:51,015 p=7624 u=root n=ansible | TASK [debug] ************************************************************************
+2023-05-14 21:33:51,033 p=7624 u=root n=ansible | ok: [localhost] => {
+    "git_status": {
+        "after": "f65b59ede39da2cc9d1d94c4ba80b0a823511c49",
+        "before": "f65b59ede39da2cc9d1d94c4ba80b0a823511c49",
+        "changed": false,
+        "failed": false,
+        "remote_url_changed": false
+    }
+}
+2023-05-14 21:33:51,044 p=7624 u=root n=ansible | TASK [mvn install command to build artifact] ****************************************
+2023-05-14 21:33:51,059 p=7624 u=root n=ansible | skipping: [localhost]
+2023-05-14 21:33:51,069 p=7624 u=root n=ansible | TASK [Copy artifacts to files directory] ********************************************
+2023-05-14 21:33:51,969 p=7624 u=root n=ansible | ok: [localhost] => (item=/root/devops-repo/Ansible-Yaml/vpc/provision-stack/Vprofile-repo/target/vprofile-v2.war)
+2023-05-14 21:33:51,979 p=7624 u=root n=ansible | TASK [Copy SQL file to files directory] *********************************************
+2023-05-14 21:33:52,439 p=7624 u=root n=ansible | ok: [localhost]
+2023-05-14 21:33:52,456 p=7624 u=root n=ansible | PLAY RECAP **************************************************************************
+2023-05-14 21:33:52,456 p=7624 u=root n=ansible | localhost                  : ok=6    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+2023-05-14 21:43:28,546 p=9093 u=root n=ansible | ERROR! the playbook: nuild.yml could not be found
+2023-05-14 21:43:36,961 p=9096 u=root n=ansible | PLAY [Generate artifact, copy artifact & sql file to files directory] ***************
+2023-05-14 21:43:36,970 p=9096 u=root n=ansible | TASK [Gathering Facts] **************************************************************
+2023-05-14 21:43:38,228 p=9096 u=root n=ansible | ok: [localhost]
+2023-05-14 21:43:38,244 p=9096 u=root n=ansible | TASK [Install  jdk, maven, git] *****************************************************
+2023-05-14 21:43:40,977 p=9096 u=root n=ansible | ok: [localhost] => (item=git)
+2023-05-14 21:43:43,415 p=9096 u=root n=ansible | ok: [localhost] => (item=openjdk-8-jdk)
+2023-05-14 21:43:45,847 p=9096 u=root n=ansible | ok: [localhost] => (item=maven)
+2023-05-14 21:43:45,858 p=9096 u=root n=ansible | TASK [Clone source code from github] ************************************************
+2023-05-14 21:43:50,066 p=9096 u=root n=ansible | changed: [localhost]
+2023-05-14 21:43:50,077 p=9096 u=root n=ansible | TASK [debug] ************************************************************************
+2023-05-14 21:43:50,096 p=9096 u=root n=ansible | ok: [localhost] => {
+    "git_status": {
+        "after": "f65b59ede39da2cc9d1d94c4ba80b0a823511c49",
+        "before": null,
+        "changed": true,
+        "failed": false
+    }
+}
+2023-05-14 21:43:50,105 p=9096 u=root n=ansible | TASK [mvn install command to build artifact] ****************************************
+2023-05-14 21:44:13,237 p=9096 u=root n=ansible | changed: [localhost]
+2023-05-14 21:44:13,255 p=9096 u=root n=ansible | TASK [Copy artifacts to files directory] ********************************************
+2023-05-14 21:44:13,268 p=10514 u=root n=ansible | [WARNING]: Unable to find 'Vprofile-repo/target' in expected paths (use -vvvvv to
+see paths)
+
+2023-05-14 21:44:13,281 p=9096 u=root n=ansible | TASK [Copy SQL file to files directory] *********************************************
+2023-05-14 21:44:13,343 p=9096 u=root n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2023-05-14 21:44:13,344 p=9096 u=root n=ansible | fatal: [localhost]: FAILED! => {"changed": false, "msg": "Could not find or access 'Vprofile-repo/src/main/resources/db_backup.sql'\nSearched in:\n\t/root/devops-repo/Ansible-Yaml/vpc/provision-stack/files/Vprofile-repo/src/main/resources/db_backup.sql\n\t/root/devops-repo/Ansible-Yaml/vpc/provision-stack/Vprofile-repo/src/main/resources/db_backup.sql\n\t/root/devops-repo/Ansible-Yaml/vpc/provision-stack/files/Vprofile-repo/src/main/resources/db_backup.sql\n\t/root/devops-repo/Ansible-Yaml/vpc/provision-stack/Vprofile-repo/src/main/resources/db_backup.sql on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2023-05-14 21:44:13,352 p=9096 u=root n=ansible | PLAY RECAP **************************************************************************
+2023-05-14 21:44:13,352 p=9096 u=root n=ansible | localhost                  : ok=5    changed=2    unreachable=0    failed=1    skipped=1    rescued=0    ignored=0   
+2023-05-14 22:13:14,121 p=10644 u=root n=ansible | PLAY [Set host IP mapping to /etc/hosts file of all instances] **********************
+2023-05-14 22:13:14,147 p=10644 u=root n=ansible | TASK [Gathering Facts] **************************************************************
+2023-05-14 22:13:15,275 p=10644 u=root n=ansible | fatal: [cntr]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname cntr: Temporary failure in name resolution", "unreachable": true}
+2023-05-14 22:13:15,291 p=10644 u=root n=ansible | fatal: [web01]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname web01: Temporary failure in name resolution", "unreachable": true}
+2023-05-14 22:13:15,877 p=10644 u=root n=ansible | ok: [cntl]
+2023-05-14 22:14:00,334 p=10644 u=root n=ansible | fatal: [app01]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.20.1.96 port 22: Connection timed out", "unreachable": true}
+2023-05-14 22:14:00,352 p=10644 u=root n=ansible | TASK [Import Host_ips variavles] ****************************************************
+2023-05-14 22:14:00,368 p=10644 u=root n=ansible | fatal: [cntl]: FAILED! => {"ansible_facts": {}, "ansible_included_var_files": [], "changed": false, "message": "Could not find or access 'group_vars/hostip'\nSearched in:\n\t/root/devops-repo/Ansible-Yaml/vpc/provision-stack/vars/group_vars/hostip\n\t/root/devops-repo/Ansible-Yaml/vpc/provision-stack/group_vars/hostip\n\t/root/devops-repo/Ansible-Yaml/vpc/provision-stack/vars/group_vars/hostip\n\t/root/devops-repo/Ansible-Yaml/vpc/provision-stack/group_vars/hostip on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2023-05-14 22:14:00,371 p=10644 u=root n=ansible | PLAY RECAP **************************************************************************
+2023-05-14 22:14:00,371 p=10644 u=root n=ansible | app01                      : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2023-05-14 22:14:00,371 p=10644 u=root n=ansible | cntl                       : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2023-05-14 22:14:00,371 p=10644 u=root n=ansible | cntr                       : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2023-05-14 22:14:00,372 p=10644 u=root n=ansible | web01                      : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2023-05-14 22:35:16,443 p=1015 u=root n=ansible | PLAY [Set host IP mapping to /etc/hosts file of all instances] **********************
+2023-05-14 22:35:16,460 p=1015 u=root n=ansible | TASK [Gathering Facts] **************************************************************
+2023-05-14 22:35:17,581 p=1015 u=root n=ansible | fatal: [cntr]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname cntr: Temporary failure in name resolution", "unreachable": true}
+2023-05-14 22:35:17,605 p=1015 u=root n=ansible | fatal: [web01]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname web01: Temporary failure in name resolution", "unreachable": true}
+2023-05-14 22:35:17,980 p=1015 u=root n=ansible | ok: [cntl]
+2023-05-14 22:35:19,590 p=1015 u=root n=ansible | ok: [app01]
+2023-05-14 22:35:19,607 p=1015 u=root n=ansible | TASK [Import Host_ips variavles] ****************************************************
+2023-05-14 22:35:19,638 p=1015 u=root n=ansible | fatal: [cntl]: FAILED! => {"ansible_facts": {}, "ansible_included_var_files": [], "changed": false, "message": "Could not find or access 'group_vars/hostip'\nSearched in:\n\t/root/devops-repo/Ansible-Yaml/vpc/provision-stack/vars/group_vars/hostip\n\t/root/devops-repo/Ansible-Yaml/vpc/provision-stack/group_vars/hostip\n\t/root/devops-repo/Ansible-Yaml/vpc/provision-stack/vars/group_vars/hostip\n\t/root/devops-repo/Ansible-Yaml/vpc/provision-stack/group_vars/hostip on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2023-05-14 22:35:19,645 p=1015 u=root n=ansible | fatal: [app01]: FAILED! => {"ansible_facts": {}, "ansible_included_var_files": [], "changed": false, "message": "Could not find or access 'group_vars/hostip'\nSearched in:\n\t/root/devops-repo/Ansible-Yaml/vpc/provision-stack/vars/group_vars/hostip\n\t/root/devops-repo/Ansible-Yaml/vpc/provision-stack/group_vars/hostip\n\t/root/devops-repo/Ansible-Yaml/vpc/provision-stack/vars/group_vars/hostip\n\t/root/devops-repo/Ansible-Yaml/vpc/provision-stack/group_vars/hostip on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2023-05-14 22:35:19,648 p=1015 u=root n=ansible | PLAY RECAP **************************************************************************
+2023-05-14 22:35:19,648 p=1015 u=root n=ansible | app01                      : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2023-05-14 22:35:19,648 p=1015 u=root n=ansible | cntl                       : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2023-05-14 22:35:19,648 p=1015 u=root n=ansible | cntr                       : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2023-05-14 22:35:19,648 p=1015 u=root n=ansible | web01                      : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
