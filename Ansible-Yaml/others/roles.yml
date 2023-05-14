@@ -1,8 +1,0 @@
-- name: Using the File Module
-  hosts: all
-  become: yes
-  roles:
-    - role: post-install
-      vars:
-        ntp0: Jembe-Jembe
-    - role: geerlingguy.java
