@@ -2,7 +2,7 @@
   import_playbook: build.yml
 
 - name: Set Hosts to Ip MApping in /etc/hosts file of all servers
-  import_playbook: set_host_ip_map.yml
+  import_playbook: host_ip_map.yml
 
 - name: Setup Tomcat application server
   import_playbook: appserver.yml

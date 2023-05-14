@@ -1,0 +1,12 @@
+- name: Set host IP mapping to /etc/hosts file of all instances
+  hosts: all
+  tasks:
+    - name: Import Host_ips variavles
+      include_vars: group_vars/hostip
+    
+    - name: Update hosts file for all the Hosts
+      blockinfile:
+        path: /etc/hosts
+        block: |
+          {{web01_ip}} web01
+          {{app01_ip}} app01
