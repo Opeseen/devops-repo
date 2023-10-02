@@ -6,12 +6,12 @@ resource "aws_key_pair" "dove-key" {
 resource "aws_instance" "doveLinux" {
   ami                    = var.AMIS[var.REGION]
   instance_type          = "t2.micro"
-  subnet_id              = aws_subnet.dove-pub-subnet-01.id
+  subnet_id              = aws_subnet.dove-pub-1.id
   key_name               = aws_key_pair.dove-key.key_name
   vpc_security_group_ids = [aws_security_group.doveSG.id]
   tags = {
     Name    = "doveLinux-Instance"
-    Project = "Linux"
+    Project = "Horpeyemi"
   }
 
   provisioner "file" {

@@ -1,5 +1,5 @@
 resource "aws_security_group" "doveSG" {
-  vpc_id      = aws_vpc.dove.id
+  vpc_id      = aws_vpc.dove_vpc.id
   name        = "dove-stack-sg"
   description = "Security group for dove ssh"
   ingress {
@@ -16,6 +16,6 @@ resource "aws_security_group" "doveSG" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    "Name" = "allow-ssh"
+    "Name" = "allow-ssh connection"
   }
 }
