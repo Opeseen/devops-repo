@@ -55,18 +55,6 @@ variable "VPC_NAME" {
   default = "banking-vpc"
 }
 
-variable "ZONE1" {
-  default = "us-east-1a"
-}
-
-variable "ZONE2" {
-  default = "us-east-1b"
-}
-
-variable "ZONE3" {
-  default = "us-east-1c"
-}
-
 variable "VPC_CIDR" {
   default = "172.21.0.0/16"
 }
@@ -82,3 +70,4 @@ variable "PUB_SUB2_CIDR" {
 variable "PUB_SUB3_CIDR" {
   default = "172.21.3.0/24"
 }
+
