@@ -37,7 +37,7 @@ resource "aws_security_group" "banking-bastion-sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [var.MY_IP_ADDRESS]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
