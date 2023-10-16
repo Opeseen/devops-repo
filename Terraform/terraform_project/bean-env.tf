@@ -1,9 +1,7 @@
 resource "aws_elastic_beanstalk_environment" "banking-beanstalk-env" {
   name                = "bank-beanstalk-env"
   application         = aws_elastic_beanstalk_application.banking-beanstalk-app.name
-  # solution_stack_name = "64bit Amazon Linux 2 v3.5.1 running Corretto 17"
-  solution_stack_name = "64bit Amazon Linux 2 v3.5.7 running Python 3.8"
-  
+  solution_stack_name = "64bit Amazon Linux 2 v3.5.1 running Corretto 17"  
   cname_prefix        = "java-banking-demo-app"
 
   setting {
@@ -15,7 +13,7 @@ resource "aws_elastic_beanstalk_environment" "banking-beanstalk-env" {
   setting {
     namespace = "aws:ec2:vpc"
     name      = "AssociatePublicIpAddress"
-    value     = false
+    value     = true
   }
 
   setting {
@@ -39,7 +37,7 @@ resource "aws_elastic_beanstalk_environment" "banking-beanstalk-env" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "InstanceType"
-    value     = "t2.small"
+    value     = "t2.micro"
   }
 
   setting {
@@ -60,17 +58,17 @@ resource "aws_elastic_beanstalk_environment" "banking-beanstalk-env" {
     value     = aws_key_pair.bank_app_key.key_name
   }
 
-  # setting {
-  #   namespace = "aws:autoscaling:launchconfiguration"
-  #   name      = "SecurityGroups"
-  #   value     = aws_security_group.banking-beanstalk-Instance.id
-  # }
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = "SecurityGroups"
+    value     = aws_security_group.banking-beanstalk-Instance.id
+  }
 
-  # setting {
-  #   namespace = "aws:elbv2:loadbalancer"
-  #   name      = "SecurityGroups"
-  #   value     = aws_security_group.bank-beanstalk-app-elb-sg.id
-  # }
+  setting {
+    namespace = "aws:elbv2:loadbalancer"
+    name      = "SecurityGroups"
+    value     = aws_security_group.bank-beanstalk-app-elb-sg.id
+  }
 
   setting {
     namespace = "aws:autoscaling:asg"
@@ -90,11 +88,11 @@ resource "aws_elastic_beanstalk_environment" "banking-beanstalk-env" {
     value     = "2"
   }
 
-  # setting {
-  #   namespace = "aws:elasticbeanstalk:application:environment"
-  #   name      = "SERVER_PORT"
-  #   value     = "5000"
-  # }
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "SERVER_PORT"
+    value     = "5000"
+  }
 
   setting {
     namespace = "aws:elasticbeanstalk:environment"
@@ -114,11 +112,11 @@ resource "aws_elastic_beanstalk_environment" "banking-beanstalk-env" {
     value     = "application"
   }
 
-  # setting {
-  #   namespace = "aws:elasticbeanstalk:environment:process:default"
-  #   name      = "HealthCheckPath"
-  #   value     = "/user/signup"
-  # }
+  setting {
+    namespace = "aws:elasticbeanstalk:environment:process:default"
+    name      = "HealthCheckPath"
+    value     = "/user/signup"
+  }
 
   setting {
     namespace = "aws:elasticbeanstalk:healthreporting:system"
