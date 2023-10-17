@@ -44,7 +44,7 @@ variable "PRIV_KEY" {
 }
 
 variable "MY_IP_ADDRESS" {
-  default = "105.113.68.179/32"
+  default = "197.210.52.183/32"
 }
 
 variable "INSTANCE_COUNT" {

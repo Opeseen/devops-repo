@@ -1,7 +1,7 @@
 resource "aws_elastic_beanstalk_environment" "banking-beanstalk-env" {
   name                = "bank-beanstalk-env"
   application         = aws_elastic_beanstalk_application.banking-beanstalk-app.name
-  solution_stack_name = "64bit Amazon Linux 2 v3.5.1 running Corretto 17"  
+  solution_stack_name = "64bit Amazon Linux 2 v3.5.1 running Corretto 17"
   cname_prefix        = "java-banking-demo-app"
 
   setting {
