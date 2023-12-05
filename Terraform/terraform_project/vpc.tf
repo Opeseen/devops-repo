@@ -8,7 +8,7 @@ module "vpc" {
 
   tags = {
     terraform  = "true"
-    enviroment = "prod"
+    enviroment = "testing"
   }
 
   vpc_tags = {
