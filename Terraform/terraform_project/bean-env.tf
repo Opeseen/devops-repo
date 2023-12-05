@@ -115,7 +115,7 @@ resource "aws_elastic_beanstalk_environment" "banking-beanstalk-env" {
   setting {
     namespace = "aws:elasticbeanstalk:environment:process:default"
     name      = "HealthCheckPath"
-    value     = "/user/signup"
+    value     = "/"
   }
 
   setting {
