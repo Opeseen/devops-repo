@@ -15,26 +15,6 @@ variable "ZONE3" {
   default = "us-east-1c"
 }
 
-variable "AMIS" {
-  type = map(any)
-  default = {
-    us-east-1 = "ami-0261755bbcb8c4a84"
-    us-east-2 = "ami-053b0d53c279acc90"
-  }
-}
-
-variable "SG" {
-  type = map(any)
-  default = {
-    us-east-1 = ["sg-07bcc50a3f262a041"]
-    us-east-2 = ["sg-0072935923ffe1330"]
-  }
-}
-
-variable "USER" {
-  default = "ubuntu"
-}
-
 variable "PUB_KEY" {
   default = "web02_key.pub"
 }
@@ -44,11 +24,7 @@ variable "PRIV_KEY" {
 }
 
 variable "MY_IP_ADDRESS" {
-  default = "197.210.52.183/32"
-}
-
-variable "INSTANCE_COUNT" {
-  default = "1"
+  default = "105.113.85.237/24"
 }
 
 variable "VPC_NAME" {
