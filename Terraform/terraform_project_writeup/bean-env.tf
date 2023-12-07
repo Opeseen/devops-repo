@@ -100,12 +100,6 @@ resource "aws_elastic_beanstalk_environment" "banking-beanstalk-env" {
     value     = "LoadBalanced"
   }
 
-  # setting {
-  #   namespace = "aws:elasticbeanstalk:environment"
-  #   name      = "ServiceRole"
-  #   value     = "aws-elasticbeanstalk-service-role"
-  # }
-
   setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "LoadBalancerType"
@@ -136,6 +130,6 @@ resource "aws_elastic_beanstalk_environment" "banking-beanstalk-env" {
     value     = "200"
   }
 
-  depends_on = [aws_security_group.bank-beanstalk-app-elb-sg, aws_security_group.banking-beanstalk-Instance]
+  depends_on = [aws_security_group.bank-beanstalk-app-elb-sg, aws_security_group.banking-beanstalk-Instance, aws_security_group.bank_app_rds_sg]
 
 }
