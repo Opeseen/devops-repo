@@ -23,10 +23,6 @@ variable "PRIV_KEY" {
   default = "web02_key"
 }
 
-variable "MY_IP_ADDRESS" {
-  default = "105.113.85.237/24"
-}
-
 variable "VPC_NAME" {
   default = "banking-vpc"
 }
