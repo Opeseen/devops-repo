@@ -8,5 +8,7 @@ Resources:
       Tags:
        - Key: "Name"
          Value: "MyFirstInstance"
+       - Key: "Tag2"
+         Value: !Join ["-",[my, inst, from, cloudFoemation]]
 
   
