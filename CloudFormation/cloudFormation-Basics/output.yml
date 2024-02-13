@@ -65,11 +65,8 @@ Resources:
           CidrIp: 0.0.0.0/0
       Tags:
        - Key: "Name"
-         Value: !Join
-            - " "
-            - - "C-SG in"
-              - !Ref AWS::Region
-
+         Value: !Join [" ", ["C-SG", "in", !Ref AWS::Region] ]
+         
 Outputs:
   PrintSomeInfo:
     Value: !GetAtt
