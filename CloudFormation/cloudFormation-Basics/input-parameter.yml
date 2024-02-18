@@ -7,9 +7,9 @@ Parameters:
     Default: t2.micro
     AllowedValues:
       - t2.micro
-      - m1.small
-      - m1.large
-    Description: Enter t2.micro, m1.small, or m1.large. Default is t2.micro.
+      - t2.small
+      - t2.large
+    Description: Enter t2.micro, t2.small, or t2.large. Default is t2.micro.
   KeyName:
     Description: Name of all EC2 login keys in my account
     Type: AWS::EC2::KeyPair::KeyName
