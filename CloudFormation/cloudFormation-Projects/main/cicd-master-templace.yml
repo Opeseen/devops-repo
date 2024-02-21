@@ -20,3 +20,19 @@ Resources:
       Parameters:
         KeyName: !Ref KeyPair
         IPAddress: !Ref InstanceIPAddress
+  DBInstance:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: JenkinsInstance
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/demo-cicd-stack/demo-stack-folder/
+      Parameters:
+        KeyName: !Ref KeyPair
+        IPAddress: !Ref InstanceIPAddress
+  TomcatInstance:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: DBInstance
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/demo-cicd-stack/demo-stack-folder/
+      Parameters:
+        KeyName: !Ref KeyPair
+        IPAddress: !Ref InstanceIPAddress

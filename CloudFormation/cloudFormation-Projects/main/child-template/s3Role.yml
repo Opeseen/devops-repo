@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  DemoS3Role:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: demo-stack-cf-cicd-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      Policies:
+        - PolicyName: demo-stack-cf-cicd-policies
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: '*'
+                Resource: 'arn::aws::s3:::*'
+  DemoInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+    InstanceProfileName: demo-stack-cf-cicd-ins-profile
+      Path: /
+      Roles:
+        - !Ref DemoS3Role
