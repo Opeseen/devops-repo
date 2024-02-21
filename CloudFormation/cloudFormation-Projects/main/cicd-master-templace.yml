@@ -1,0 +1,22 @@
+Parameters:
+  KeyPair:
+    Description: DEMO CICD STACK KEY
+    Type: AWS;;EC2::KeyPair::KeyName
+  InstanceIPAddress:
+    Description: Assigning IP Address
+    Type: String
+    Default: "0.0.0.0/0"
+
+Resources:
+  S3RoleForDemoCICD:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/demo-cicd-stack/demo-stack-folder/
+  JenkinsInstance:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: S3RoleForDemoCICD
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/demo-cicd-stack/demo-stack-folder/
+      Parameters:
+        KeyName: !Ref KeyPair
+        IPAddress: !Ref InstanceIPAddress
