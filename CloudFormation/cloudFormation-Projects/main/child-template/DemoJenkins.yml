@@ -18,7 +18,7 @@ Mappings:
     us-east-2: 
       "AMI": "ami-0e731c8a588258d0d"
 
-Resource:
+Resources:
   DemoJenkinsInstance:
     Type: AWS::EC2::Instance
     Properties:
@@ -82,4 +82,4 @@ Outputs:
       - JenkinsSG
       - GroupId
     Export:
-      Name: Jemk-SGID
+      Name: Jenk-SGID
