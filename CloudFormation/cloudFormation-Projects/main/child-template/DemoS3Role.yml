@@ -13,7 +13,7 @@ Resources:
                 - ec2.amazonaws.com
             Action:
               - 'sts:AssumeRole'
-      Path: /
+      Path: "/"
       Policies:
         - PolicyName: demo-stack-cf-cicd-policies
           PolicyDocument:
@@ -21,11 +21,17 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: '*'
-                Resource: 'arn::aws::s3:::*'
+                Resource: 'arn:aws:s3:::*'
   DemoInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
-    InstanceProfileName: demo-stack-cf-cicd-ins-profile
-      Path: /
+      InstanceProfileName: demo-stack-cf-cicd-ins-profile
+      Path: "/"
       Roles:
         - !Ref DemoS3Role
+Outputs:
+  DemoS3RoleDetails:
+    Description: DEMO CICD S3 ROLE
+    Value: !Ref DemoInstanceProfile
+    Export:
+      Name: DemoS3Role-S3ProfileName
