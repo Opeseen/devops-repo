@@ -2,11 +2,11 @@ Parameters:
   S3RoleTemplateName:
     Description: Name of the base stack with all infra-resources
     Type: String
-    Default: DemoS3Role
+    Default: DemoS3Role # SET THE NAME AS THE DEMO-S3-ROLE EXPORT VALUE
   IPAddress:
-    Type: String
+    Type: String # GET THE IP-ADDRESS FROM THE MASTER TEMPLATE
   KeyName:
-    Type: String
+    Type: String # GET THE KEYNAME FROM THE MASTER TEMPLATE
   InstanceType:
     Type: String
     Default: t2.micro
