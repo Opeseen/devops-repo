@@ -1,4 +1,8 @@
 Parameters:
+  S3RoleTemplateName:
+    Description: Name of the base stack with all infra-resources
+    Type: String
+    Default: DemoS3Role # SET THE NAME AS PER THE DEMO-S3-ROLE EXPORT VALUE
   IPAddress:
     Type: String # GET THE IP-ADDRESS FROM THE MASTER TEMPLATE
   KeyName:
@@ -6,3 +10,56 @@ Parameters:
   InstanceType:
     Type: String
     Default: t2.micro
+
+Mappings: 
+  DemoRegionMap: 
+    us-east-1: 
+      "AMI": "ami-06aa3f7caf3a30282"
+    us-east-2: 
+      "AMI": "ami-0e731c8a588258d0d"
+
+Resources:
+  DemoTomcatInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyName
+      ImageId: !FindInMap
+        - DemoRegionMap
+        - !Ref AWS::Region
+        - AMI
+      SecurityGroups:
+        - !Ref TomcatSG
+      IamInstanceProfile:
+        Fn::ImportValue:
+          Fn::Sub: "${S3RoleTemplateName}-S3ProfileName"
+      UserData:
+        Fn::Base64:
+          !Sub |
+            #!/bin/bash
+            sudo apt update
+            # Installing openjdk-17-jdk wget and unzip
+            l
+            sudo apt install wget unzip -y
+
+            # Installing Tomcat
+      Tags:
+        - Key: "Name"
+          Value: !Join [" ", ["Tomcat", "in", !Ref AWS::Region]]
+
+  TomcatSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow 8080 and SSH to connect
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 8080
+          ToPort: 8080
+          CidrIp: !Ref IPAddress
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      Tags:
+      - Key: "Name"
+        Value: !Join [" ", ["TomcatSG", "in", !Ref AWS::Region]]
