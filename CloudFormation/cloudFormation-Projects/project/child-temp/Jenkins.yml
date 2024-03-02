@@ -2,7 +2,7 @@ Parameters:
   S3RoleTemplateName:
     Description: Name of the base stack with all infra-resources
     Type: String
-    Default: DemoS3Role # SET THE NAME AS THE DEMO-S3-ROLE EXPORT VALUE
+    Default: S3Role # SET THE NAME AS THE S3-ROLE EXPORT VALUE
   IPAddress:
     Type: String # GET THE IP-ADDRESS FROM THE MASTER TEMPLATE
   KeyName:
@@ -12,7 +12,7 @@ Parameters:
     Default: t2.micro
 
 Mappings: 
-  DemoRegionMap: 
+  RegionMap: 
     us-east-1: 
       "AMI": "ami-06aa3f7caf3a30282"
     us-east-2: 
@@ -38,9 +38,9 @@ Resources:
           !Sub |
             #!/bin/bash
             sudo apt update
-            # Installing openjdk-17-jdk and wget
+            # Installing openjdk-17-jdk wget and unzip
             sudo apt install openjdk-17-jdk -y
-            sudo apt install wget -y
+            sudo apt install wget unzip -y
 
             # Installing Jenkins
             sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
