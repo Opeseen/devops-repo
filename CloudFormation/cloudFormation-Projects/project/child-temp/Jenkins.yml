@@ -1,10 +1,13 @@
+AWSTemplateFormatVersion: "2010-09-09"
 Parameters:
   S3RoleTemplateName:
     Description: Name of the base stack with all infra-resources
     Type: String
     Default: S3Role # SET THE NAME AS THE S3-ROLE EXPORT VALUE
-  IPAddress:
-    Type: String # GET THE IP-ADDRESS FROM THE MASTER TEMPLATE
+  SGStalkName:
+    Description: Security group for the Jenkins Instance
+    Type: String
+    Default: Jenkins
   KeyName:
     Type: String # GET THE KEYNAME FROM THE MASTER TEMPLATE
   InstanceType:
@@ -19,17 +22,15 @@ Mappings:
       "AMI": "ami-0e731c8a588258d0d"
 
 Resources:
-  DemoJenkinsInstance:
+  JenkinsInstance:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: !Ref InstanceType
       KeyName: !Ref KeyName
-      ImageId: !FindInMap
-        - DemoRegionMap
-        - !Ref AWS::Region
-        - AMI
-      SecurityGroups:
-        - !Ref JenkinsSG
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMI]
+      SecurityGroupIds:
+        - !ImportValue 
+          'Fn::Sub': "${SGStalkName}-SecurityGroupID"
       IamInstanceProfile:
         Fn::ImportValue:
           Fn::Sub: "${S3RoleTemplateName}-S3ProfileName"
@@ -38,48 +39,15 @@ Resources:
           !Sub |
             #!/bin/bash
             sudo apt update
-            # Installing openjdk-17-jdk wget and unzip
             sudo apt install openjdk-17-jdk -y
-            sudo apt install wget unzip -y
+            sudo apt install wget -y
 
             # Installing Jenkins
-            sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
-              https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
-            echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
-              https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
-              /etc/apt/sources.list.d/jenkins.list > /dev/null
+            
+            sudo wget -O /usr/share/keyrings/jenkins-keyring.asc  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+            echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
             sudo apt-get update
             sudo apt-get install jenkins -y
       Tags:
         - Key: "Name"
           Value: !Join [" ", ["Jenkins", "in", !Ref AWS::Region]]
-  JenkinsSG:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: Allow 8080 and SSH to connect
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 8080
-          ToPort: 8080
-          CidrIp: !Ref IPAddress
-        - IpProtocol: tcp
-          FromPort: 22
-          ToPort: 22
-          CidrIp: 0.0.0.0/0
-      Tags:
-      - Key: "Name"
-        Value: !Join [" ", ["JenkSG", "in", !Ref AWS::Region]]
-
-Outputs:
-  DemoJenkinsPubAddr:
-    Value: !GetAtt
-      - DemoJenkinsInstance
-      - PublicIp
-  DemoJenkinsInstanceId:
-    Value: !Ref DemoJenkinsInstance
-  DemoJenkinsInstanceSGID:
-    Value: !GetAtt
-      - JenkinsSG
-      - GroupId
-    Export:
-      Name: Jenk-SGID
