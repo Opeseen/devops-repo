@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  SGStalkName:
+    Description: Security group for the Jenkins Instance
+    Type: String
+    Default: sg-07bcc50a3f262a041
+  KeyPair:
+    Description: DEMO CICD STACK KEY
+    Type: AWS::EC2::KeyPair::KeyName
+  InstanceType:
+    Type: String
+    Default: t2.micro
+
+Resources:
+  beanstalkApplication:
+    Type: AWS::ElasticBeanstalk::Application
+    Properties:
+      ApplicationName: JavaBeanstalkApplication
+      Description: BEanstalk application for Java cicd
+  beanstalkApplicationVersion:
+    Type: AWS::ElasticBeanstalk::ApplicationVersion
+    Properties:
+      ApplicationName:
+        Ref: beanstalkApplication
+      Description: AWS ElasticBeanstalk Java Application Version
+  beanstalkConfigurationTemplate:
+  
+
+
+
