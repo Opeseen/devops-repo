@@ -1,0 +1,66 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  SGStalkName:
+    Description: Security group for the Jenkins Instance
+    Type: String
+    Default: sg-07bcc50a3f262a041
+  KeyPair:
+    Description: DEMO CICD STACK KEY
+    Type: AWS::EC2::KeyPair::KeyName
+  InstanceType:
+    Type: String
+    Default: t2.micro
+
+Mappings: 
+  RegionMap: 
+    us-east-1: 
+      "AMI": "ami-06aa3f7caf3a30282"
+    us-east-2: 
+      "AMI": "ami-0e731c8a588258d0d"
+
+Resources:
+  JenkinsInstance:
+    Type: AWS::EC2::Instance
+    Metadata:
+      AWS::CloudFormation::Init:
+        config:
+          packages:
+            apt:
+              openjdk-17-jdk: []
+              wget: []
+          commands:
+            01_add_jenkins_repo_key:
+              command: "wget -O /usr/share/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key"
+            02_add_jenkins_repo:
+              command: " echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null"
+            03_update_and_install_jenkins:
+              command: "sudo apt-get update && sudo apt-get install jenkins -y"
+    Properties:
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyPair
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMI]
+      SecurityGroupIds: [!Ref SGStalkName]
+      UserData:
+        Fn::Base64:
+          !Sub |
+            #!/bin/bash
+            set -e
+            # Ensure the cfn-init tool is available
+            apt-get update
+            apt-get install -y aws-cfn-bootstrap
+            # Execute the AWS::CloudFormation::Init configuration
+            /usr/local/bin/cfn-init -v --stack ${AWS::StackName} --resource JenkinsInstance --region ${AWS::Region}
+            # Signal the CloudFormation stack if needed
+            # /usr/local/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource JenkinsInstance --region ${AWS::Region}
+      Tags:
+        - Key: "Name"
+          Value: !Join [" ", ["Jenkins", "in", !Ref AWS::Region]]
+
+Outputs:
+  JenkinsInstancePublicIP:
+    Description: "Public IP of the Jenkins instance"
+    Value: !GetAtt JenkinsInstance.PublicIp
+  JenkinsInstancePublicDNS:
+    Description: "Public DNS name of the Jenkins instance"
+    Value: !GetAtt JenkinsInstance.PublicDnsName
+
