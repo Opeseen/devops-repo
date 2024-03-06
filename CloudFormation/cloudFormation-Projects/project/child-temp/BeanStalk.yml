@@ -17,11 +17,6 @@ Resources:
     Properties:
       ApplicationName: JavaBeanstalkApplication
       Description: Beanstalk application for Java cicd
-  # beanstalkApplicationVersion:
-  #   Type: AWS::ElasticBeanstalk::ApplicationVersion
-  #   Properties:
-  #     ApplicationName: !Ref beanstalkApplication
-  #     Description: AWS ElasticBeanstalk Java Application Version
   beanstalkConfigurationTemplate:
     Type: AWS::ElasticBeanstalk::ConfigurationTemplate
     Properties:
