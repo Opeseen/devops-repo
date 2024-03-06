@@ -3,11 +3,11 @@ Parameters:
   SGStalkName:
     Description: Security group for the Jenkins Instance
     Type: String
-    Default: sg-07bcc50a3f262a041
+    Default: "sg-07bcc50a3f262a041"
   KeyPair:
     Description: DEMO CICD STACK KEY
     Type: AWS::EC2::KeyPair::KeyName
-  InstanceType:
+  BeanStalkInstanceType:
     Type: String
     Default: t2.micro
 
@@ -16,14 +16,88 @@ Resources:
     Type: AWS::ElasticBeanstalk::Application
     Properties:
       ApplicationName: JavaBeanstalkApplication
-      Description: BEanstalk application for Java cicd
-  beanstalkApplicationVersion:
-    Type: AWS::ElasticBeanstalk::ApplicationVersion
-    Properties:
-      ApplicationName:
-        Ref: beanstalkApplication
-      Description: AWS ElasticBeanstalk Java Application Version
+      Description: Beanstalk application for Java cicd
+  # beanstalkApplicationVersion:
+  #   Type: AWS::ElasticBeanstalk::ApplicationVersion
+  #   Properties:
+  #     ApplicationName: !Ref beanstalkApplication
+  #     Description: AWS ElasticBeanstalk Java Application Version
   beanstalkConfigurationTemplate:
+    Type: AWS::ElasticBeanstalk::ConfigurationTemplate
+    Properties:
+      ApplicationName: !Ref beanstalkApplication
+      Description: AWS Beanstalk Setup configuration template
+      OptionSettings:
+      - Namespace: aws:ec2:vpc
+        OptionName: VPCId
+        Value: "vpc-020e12aacd5497e91"
+      - Namespace: aws:ec2:vpc
+        OptionName: Subnets
+        Value: "subnet-0d245493c5a47cd94,subnet-0e21a28d34d2800fe,subnet-0d9872dcf5778431e"
+      - Namespace: aws:ec2:vpc
+        OptionName: ELBSubnets
+        Value: "subnet-0d245493c5a47cd94,subnet-0e21a28d34d2800fe,subnet-0d9872dcf5778431e"
+      - Namespace: aws:autoscaling:asg
+        OptionName: MinSize
+        Value: "1"
+      - Namespace: aws:autoscaling:asg
+        OptionName: MaxSize
+        Value: "2"
+      - Namespace: aws:ec2:vpc
+        OptionName: AssociatePublicIpAddress
+        Value: true
+      - Namespace: aws:autoscaling:launchconfiguration
+        OptionName: IamInstanceProfile
+        Value: "Ansible_admin"
+      - Namespace: aws:autoscaling:launchconfiguration
+        OptionName: InstanceType 
+        Value: !Ref BeanStalkInstanceType
+      - Namespace: aws:autoscaling:launchconfiguration
+        OptionName: RootVolumeType
+        Value: "gp2"
+      - Namespace: aws:autoscaling:launchconfiguration
+        OptionName: EC2KeyName
+        Value: !Ref KeyPair
+      - Namespace: aws:autoscaling:launchconfiguration
+        OptionName: SecurityGroups
+        Value: !Ref SGStalkName
+      - Namespace: aws:elbv2:loadbalancer
+        OptionName: SecurityGroups
+        Value: !Ref SGStalkName
+      - Namespace: aws:autoscaling:asg
+        OptionName: Availability Zones
+        Value: "Any 3"
+      - Namespace: aws:elasticbeanstalk:application:environment
+        OptionName: SERVER_PORT
+        Value: "5000"
+      - Namespace: aws:elasticbeanstalk:environment
+        OptionName: EnvironmentType
+        Value: "LoadBalanced"
+      - Namespace: aws:elasticbeanstalk:environment:process:default
+        OptionName: HealthCheckPath 
+        Value: "/"
+      - Namespace: aws:elasticbeanstalk:healthreporting:system
+        OptionName: SystemType
+        Value: "enhanced"
+      - Namespace: aws:elasticbeanstalk:command
+        OptionName: DeploymentPolicy
+        Value: "AllAtOnce"
+      - Namespace: aws:elasticbeanstalk:environment:process:default
+        OptionName: MatcherHTTPCode
+        Value: "200"
+      SolutionStackName: "64bit Amazon Linux 2 v3.5.1 running Corretto 17"
+  beanstalkEnvironment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      ApplicationName: !Ref beanstalkApplication
+      CNAMEPrefix: java-banking-demo-app
+      Description: Beanstalk environment for Java cicd
+      EnvironmentName: banking-beanstalk-env
+      TemplateName: !Ref beanstalkConfigurationTemplate
+      # Tags:
+      # - Key: "Name"
+      #   Value: "demo_beanstalk_ins"
+
   
 
 
