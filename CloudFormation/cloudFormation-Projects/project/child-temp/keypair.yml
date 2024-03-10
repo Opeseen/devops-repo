@@ -1,0 +1,14 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  AppKeyPair:
+    Type: AWS::EC2::KeyPair
+    Properties:
+      KeyName: web01_key
+      PublicKeyMaterial: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDHD4PSwoLe2n3NEHgHVAbDVZ5xyGn35HJz0hWfJbu9fKCYqoYocqTgtpsULfNIai9Rb+Y1UdiOqdFaLy6bIFe9Jz6KfR6/c9NZoyUmfwckvjpOVCdUgqpHwKBB5CwoOKf4TSJ8DZa7dDNawTOc0cpcdUwehqZjNxnHRSw28rrx2pMa43FPXSQvFtAUu/TK//X6dGUtzpFfeMaY+XwkFsZNeL+EUT0mZnjydLlgYyCsmmcqAV72wpYKrQNPh8r/Nh8c7U+mvC9LZvRvYNaM/zKQGFwZVA5Hs4tqz+ZfVQN5wFLnGUtKBJbGQKllcCdQPlh8T61pKfPQgdBpjbTwW+pKm0kd6jme6M271qdB2hVL7ln0vSkfKxQb5+Hor88HV/oOKk7EJGmxTuZMWe2TtYcs+st4ESwtk5LfoqPtchDaIgNMq6hXb39HFJzxYsfFI2DCRDCHJqcQSOvnk7OF8b3z1rG1JrLqGLFAc66t2tbTo3B7qEKtOe2MIOj3I+HRTQE= Horpeyemi@Horpeyemi
+
+Outputs:
+  KeyPair:
+    Description: Key pair to use for the instances
+    Value: !Ref AppKeyPair
+    Export:
+      Name: KeyPair_Name

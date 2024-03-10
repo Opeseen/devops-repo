@@ -43,7 +43,7 @@ Resources:
         Value: true
       - Namespace: aws:autoscaling:launchconfiguration
         OptionName: IamInstanceProfile
-        Value: "Ansible_admin"
+        Value: "aws-beanstalk-ec2-role "
       - Namespace: aws:autoscaling:launchconfiguration
         OptionName: InstanceType 
         Value: !Ref BeanStalkInstanceType

@@ -97,3 +97,9 @@ Resources:
     Properties:
       RouteTableId: !Ref PublicRouteTable
       SubnetId: !Ref PublicSubnetThree
+
+Outputs:
+  VpcId:
+    Description: The ID of the VPC Created
+    Value: !Ref ApplicationVPC
+    Export: Vpc_ID
