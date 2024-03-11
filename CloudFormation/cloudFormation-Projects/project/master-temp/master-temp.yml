@@ -14,9 +14,9 @@ Resources:
     Properties:
       TemplateURL: https://s3.amazonaws.com/demo-cicd-stack/demo-stack-folder/SG.yml
   JenkinsInstance:
-      Type: AWS::CloudFormation::Stack
-      DependsOn: SecurityGroupStalk
-      Properties:
-        TemplateURL: https://s3.amazonaws.com/demo-cicd-stack/demo-stack-folder/Jenkins.yml
-        Parameters:
-          KeyName: !Ref KeyPair
+    Type: AWS::CloudFormation::Stack
+    DependsOn: SecurityGroupStalk
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/demo-cicd-stack/demo-stack-folder/Jenkins.yml
+      Parameters:
+        KeyName: !Ref KeyPair
