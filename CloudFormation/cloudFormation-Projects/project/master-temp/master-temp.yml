@@ -7,7 +7,7 @@ Resources:
   S3RoleStalk:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://s3.amazonaws.com/demo-cicd-stack/demo-stack-folder/S3Role.yml
+      TemplateURL: https://s3.amazonaws.com/demo-cicd-stack/demo-stack-folder/AuthRole.yml
   SecurityGroupStalk:
     Type: AWS::CloudFormation::Stack
     DependsOn: S3RoleStalk

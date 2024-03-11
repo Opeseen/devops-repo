@@ -1,9 +1,9 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Parameters:
-  S3RoleTemplateName:
+  S3RoleInstanceProfile:
     Description: Name of the base stack with all infra-resources
     Type: String
-    Default: S3Role # SET THE NAME AS THE S3-ROLE EXPORT VALUE
+    Default: JenkS3Role # SET THE NAME AS THE S3-ROLE EXPORT VALUE
   SGStalkName:
     Description: Security group for the Jenkins Instance
     Type: String
@@ -33,7 +33,7 @@ Resources:
           'Fn::Sub': "${SGStalkName}-SecurityGroupID"
       IamInstanceProfile:
         Fn::ImportValue:
-          Fn::Sub: "${S3RoleTemplateName}-S3ProfileName"
+          Fn::Sub: "${S3RoleInstanceProfile}-InstanceProfileName"
       UserData:
         Fn::Base64:
           !Sub |
