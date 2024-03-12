@@ -1,0 +1,13 @@
+pipeline{
+  agent any
+  environment{
+    
+  }
+  stages{
+    stage('Fetch code from GitHub'){
+      steps{
+        git branch: 'master', url: 'enter url here'
+      }
+    }
+  }
+}
