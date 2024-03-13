@@ -66,4 +66,4 @@ Outputs:
     Description: Instance profile attached to the elasticbeanstalk environment
     Value: !Ref BeanstalkInstanceProfile
     Export:
-      Name: ElasticBeanstalk-InstancProfile-Details
+      Name: ElasticBeanstalk-InstancProfile-Name

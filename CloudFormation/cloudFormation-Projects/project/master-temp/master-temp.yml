@@ -1,22 +1,31 @@
 Parameters:
+  InstanceTypeParameter:
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - t2.small
+      - t2.large
+    Description: Enter t2.micro, t2.small, or t2.large. Default is t2.micro.
   KeyPair:
     Description: DEMO CICD STACK KEY
     Type: AWS::EC2::KeyPair::KeyName
 
 Resources:
-  S3RoleStalk:
+  AuthRoleStalk:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://s3.amazonaws.com/demo-cicd-stack/demo-stack-folder/AuthRole.yml
+      TemplateURL: https://s3.amazonaws.com/demo-cicd-stack-bucket/demo-stack-folder/AuthRole.yml
   SecurityGroupStalk:
     Type: AWS::CloudFormation::Stack
-    DependsOn: S3RoleStalk
+    DependsOn: AuthRoleStalk
     Properties:
-      TemplateURL: https://s3.amazonaws.com/demo-cicd-stack/demo-stack-folder/SG.yml
+      TemplateURL: https://s3.amazonaws.com/demo-cicd-stack-bucket/demo-stack-folder/SG.yml
   JenkinsInstance:
     Type: AWS::CloudFormation::Stack
     DependsOn: SecurityGroupStalk
     Properties:
-      TemplateURL: https://s3.amazonaws.com/demo-cicd-stack/demo-stack-folder/Jenkins.yml
+      TemplateURL: https://s3.amazonaws.com/demo-cicd-stack-bucket/demo-stack-folder/Jenkins.yml
       Parameters:
         KeyName: !Ref KeyPair
+        InstanceType: !Ref InstanceTypeParameter

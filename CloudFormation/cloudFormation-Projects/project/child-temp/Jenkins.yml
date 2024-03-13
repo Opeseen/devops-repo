@@ -12,8 +12,6 @@ Parameters:
     Type: String # GET THE KEYNAME FROM THE MASTER TEMPLATE
   InstanceType:
     Type: String
-    Default: t2.micro
-
 Mappings: 
   RegionMap: 
     us-east-1: 
@@ -39,7 +37,7 @@ Resources:
           !Sub |
             #!/bin/bash
             sudo apt update
-            sudo apt install openjdk-17-jdk -y
+            sudo apt install openjdk-17-jdk maven -y
             sudo apt install wget -y
 
             # Installing Jenkins

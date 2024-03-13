@@ -1,13 +1,25 @@
 pipeline{
   agent any
-  environment{
-    
-  }
   stages{
     stage('Fetch code from GitHub'){
       steps{
-        git branch: 'master', url: 'enter url here'
+        git branch: 'master', url: 'https://github.com/Horpeyemi007/JAVA-WITH-SPRING-BOOT.git'
       }
     }
+    stage('Test Job'){
+			steps{
+				sh 'mvn clean test'
+			}
+		}
+		stage('Checkstyle Code Analysis'){
+			steps{
+				sh 'mvn checkstyle:checkstyle'
+			}
+			post{
+				success{
+					echo "Generated Analysis Result"
+				}
+			}
+		}
   }
 }
