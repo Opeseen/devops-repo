@@ -22,10 +22,18 @@ pipeline{
 			}
 		}
     stage('Code Analysis'){
-      def scannerHome = tool 'SonarScanner 4.0';
+      environment {
+				scannerHome = tool 'Sonar4'
+			}
       steps{
         withSonarQubeEnv('sonarCloud'){
-          sh '''${scannerHome}/bin/sonar-scanner -Dsonar.organization='''
+					sh '${scannerHome}/bin/sonar-scanner \
+					-Dsonar.organization=horpeyemidevops \
+					-Dsonar.projectKey=horpeyemidevops_jenkins-cicd -Dsonar.sources=src/ \
+					-Dsonar.junit.reportsPath=target/surefire-reports/ \
+					-Dsonar.junit.reportsPath=target/jacoco.exec \
+					-Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
+					-Dsonar.java.binaries=target/test-classes/com/opeyemi/banking/'
         }
       }
     }
