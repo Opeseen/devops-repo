@@ -21,5 +21,13 @@ pipeline{
 				}
 			}
 		}
+    stage('Code Analysis'){
+      def scannerHome = tool 'SonarScanner 4.0';
+      steps{
+        withSonarQubeEnv('sonarCloud'){
+          sh '''${scannerHome}/bin/sonar-scanner -Dsonar.organization='''
+        }
+      }
+    }
   }
 }
