@@ -6,7 +6,7 @@ pipeline{
         git branch: 'master', url: 'https://github.com/Horpeyemi007/JAVA-WITH-SPRING-BOOT.git'
       }
     }
-    stage('Test Job'){
+    stage('Run Test'){
 			steps{
 				sh 'mvn clean test'
 			}
@@ -15,15 +15,10 @@ pipeline{
 			steps{
 				sh 'mvn checkstyle:checkstyle'
 			}
-			post{
-				success{
-					echo "Generated Analysis Result"
-				}
-			}
 		}
-    stage('Code Analysis'){
+    stage('Sonar Analysis'){
       environment {
-				scannerHome = tool 'Sonar4'
+				scannerHome = tool 'sonarScanner4'
 			}
       steps{
         withSonarQubeEnv('sonarCloud'){
@@ -36,6 +31,26 @@ pipeline{
 					-Dsonar.java.binaries=target/test-classes/com/opeyemi/banking/'
         }
       }
+    }
+    stage('Quality Gate'){
+      steps{
+        timeout(time: 1, unit: 'HOURS'){
+          waitForQualityGate abortPipeline: true
+        }
+      }
+    }
+    stage('Build'){
+      steps{sh 'mvn clean package'}
+      post{
+        success{
+          archiveArtifacts artifacts: '**/*v1.jar'
+        }
+      }
+    }
+  }
+  post{
+    always{
+      echo "Finished......"
     }
   }
 }
