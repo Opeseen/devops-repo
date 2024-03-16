@@ -3,7 +3,7 @@ Parameters:
   ElasticBeanstalkConfigTemplate:
     Description: Template used to set up beanstalkApplication
     Type: String
-    Default: BeanStalkTemplateName
+    Default: BeanStalkEnvironmentTemplate
   beanstalkApplication:
     Description: "Elastic beanstalk application name"
     Type: String
@@ -16,9 +16,9 @@ Resources:
       ApplicationName:
         Fn::ImportValue:
           Fn::Sub: "${beanstalkApplication}"
-      CNAMEPrefix: java-banking-demo-app
-      Description: Beanstalk environment for Java cicd
-      EnvironmentName: banking-beanstalk-env
+      CNAMEPrefix: cloud-banking-app
+      Description: Beanstalk environment setup for Demo Banking App
+      EnvironmentName: DemoBankEnv
       TemplateName:
         Fn::ImportValue:
           Fn::Sub: "${ElasticBeanstalkConfigTemplate}"

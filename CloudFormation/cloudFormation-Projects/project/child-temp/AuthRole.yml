@@ -1,9 +1,9 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Resources:
-  JenkS3Role:
+  JenkinsEC2Role:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: cf-s3-role
+      RoleName: Jenkins-s3-beanstalk-role
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -22,13 +22,15 @@ Resources:
               - Effect: Allow
                 Action: '*'
                 Resource: 'arn:aws:s3:::*'
-  InstanceProfile:
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess-AWSElasticBeanstalk
+  JenkinsInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
-      InstanceProfileName: cf-s3-ins-profile
+      InstanceProfileName: jenk-ins-profile
       Path: "/"
       Roles:
-        - !Ref JenkS3Role
+        - !Ref JenkinsEC2Role
 
   beanStalkEC2Role:
     Type: AWS::IAM::Role
@@ -58,9 +60,9 @@ Resources:
 Outputs:
   S3RoleDetails:
     Description: CICD S3 ROLE
-    Value: !Ref InstanceProfile
+    Value: !Ref JenkinsInstanceProfile
     Export:
-      Name: JenkS3Role-InstanceProfileName
+      Name: Jenk-InstanceProfileName
   
   beanstalkInstanceProfileDetails:
     Description: Instance profile attached to the elasticbeanstalk environment

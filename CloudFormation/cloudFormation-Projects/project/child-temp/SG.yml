@@ -3,7 +3,7 @@ Resources:
   JenkinsSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: Allow 8080 and SSH to connect
+      GroupDescription: Allow 8080(Jenkins) and SSH to connect
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 8080

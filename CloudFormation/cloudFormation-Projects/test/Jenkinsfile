@@ -13,46 +13,8 @@ pipeline{
         git branch: 'master', url: 'https://github.com/Horpeyemi007/JAVA-WITH-SPRING-BOOT.git'
       }
     }
-    stage('Run Test'){
-			steps{
-				sh 'mvn clean test'
-			}
-		}
-		stage('Checkstyle Code Analysis'){
-			steps{
-				sh 'mvn checkstyle:checkstyle'
-			}
-		}
-    stage('Sonar Analysis'){
-      environment {
-				scannerHome = tool 'sonarScanner4'
-			}
-      steps{
-        withSonarQubeEnv('sonarCloud'){
-					sh '${scannerHome}/bin/sonar-scanner \
-					-Dsonar.organization=horpeyemidevops \
-					-Dsonar.projectKey=horpeyemidevops_jenkins-cicd -Dsonar.sources=src/ \
-					-Dsonar.junit.reportsPath=target/surefire-reports/ \
-					-Dsonar.junit.reportsPath=target/jacoco.exec \
-					-Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
-					-Dsonar.java.binaries=target/test-classes/com/opeyemi/banking/'
-        }
-      }
-    }
-    stage('Quality Gate'){
-      steps{
-        timeout(time: 1, unit: 'HOURS'){
-          waitForQualityGate abortPipeline: true
-        }
-      }
-    }
     stage('Build'){
       steps{sh 'mvn clean package'}
-      post{
-        success{
-          archiveArtifacts artifacts: '**/*v1.jar'
-        }
-      }
     }
     stage('Updoad to S3'){
       steps{

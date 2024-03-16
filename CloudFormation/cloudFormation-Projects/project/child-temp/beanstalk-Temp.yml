@@ -1,11 +1,11 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Parameters:
-  SGStalkName:
-    Description: Security group for the Jenkins Instance
+  DemoAppSG:
+    Description: Security group for the Beanstalk Instance
     Type: String
     Default: "sg-07bcc50a3f262a041"
   KeyPair:
-    Description: DEMO CICD STACK KEY
+    Description: demo bank app keypair
     Type: AWS::EC2::KeyPair::KeyName
   BeanStalkInstanceType:
     Type: String
@@ -15,13 +15,13 @@ Resources:
   beanstalkApplication:
     Type: AWS::ElasticBeanstalk::Application
     Properties:
-      ApplicationName: JavaBeanstalkApplication
-      Description: Beanstalk application for Java cicd
+      ApplicationName: DemoBankApp
+      Description: Beanstalk application setup for Demo Banking App
   beanstalkConfigurationTemplate:
     Type: AWS::ElasticBeanstalk::ConfigurationTemplate
     Properties:
       ApplicationName: !Ref beanstalkApplication
-      Description: AWS Beanstalk Setup configuration template
+      Description: AWS Demo Bank Setup Configuration Template
       OptionSettings:
       - Namespace: aws:ec2:vpc
         OptionName: VPCId
@@ -43,7 +43,7 @@ Resources:
         Value: true
       - Namespace: aws:autoscaling:launchconfiguration
         OptionName: IamInstanceProfile
-        Value: "aws-beanstalk-ec2-role"
+        Value: elastic-beanstalk-ins-profile
       - Namespace: aws:autoscaling:launchconfiguration
         OptionName: InstanceType 
         Value: !Ref BeanStalkInstanceType
@@ -55,10 +55,10 @@ Resources:
         Value: !Ref KeyPair
       - Namespace: aws:autoscaling:launchconfiguration
         OptionName: SecurityGroups
-        Value: !Ref SGStalkName
+        Value: !Ref DemoAppSG
       - Namespace: aws:elbv2:loadbalancer
         OptionName: SecurityGroups
-        Value: !Ref SGStalkName
+        Value: !Ref DemoAppSG
       - Namespace: aws:autoscaling:asg
         OptionName: Availability Zones
         Value: "Any 3"
@@ -84,10 +84,10 @@ Resources:
 
 Outputs:
   beanStalkTemplateName:
-    Description: "Template Configuration for Elastic Beanstalk setup"
+    Description: "Template Configuration for Beanstalk enviroment setup"
     Value: !Ref beanstalkConfigurationTemplate
     Export:
-      Name: BeanStalkTemplateName
+      Name: BeanStalkEnvironmentTemplate
   beanstalkApplicationName:
     Description: "Name of the Elastic beanstalk application"
     Value: !Ref beanstalkApplication

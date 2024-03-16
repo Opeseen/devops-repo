@@ -103,3 +103,15 @@ Outputs:
     Description: The ID of the VPC Created
     Value: !Ref ApplicationVPC
     Export: Vpc_ID
+  PublicSubnetOneID:
+    Description: The ID of subnet 1
+    Value: !Ref PublicSubnetOne
+    Export: Pub_Subnet_1_ID
+  PublicSubnetTwoID:
+    Description: The ID of subnet 2
+    Value: !Ref PublicSubnetTwo
+    Export: Pub_Subnet_2_ID
+  PublicSubnetThreeID:
+    Description: The ID of subnet 3
+    Value: !Ref PublicSubnetThree
+    Export: Pub_Subnet_3_ID
