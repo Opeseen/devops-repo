@@ -1,27 +1,13 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Parameters:
-  ElasticBeanstalkConfigTemplate:
-    Description: Template used to set up beanstalkApplication
-    Type: String
-    Default: BeanStalkEnvironmentTemplate
-  beanstalkApplication:
-    Description: "Elastic beanstalk application name"
-    Type: String
-    Default: ElasticBeanStalkApplicationName
-
 Resources:
   beanstalkEnvironment:
     Type: AWS::ElasticBeanstalk::Environment
     Properties:
-      ApplicationName:
-        Fn::ImportValue:
-          Fn::Sub: "${beanstalkApplication}"
+      ApplicationName: !ImportValue ElasticBeanStalkApplicationName
       CNAMEPrefix: cloud-banking-app
       Description: Beanstalk environment setup for Demo Banking App
       EnvironmentName: DemoBankEnv
-      TemplateName:
-        Fn::ImportValue:
-          Fn::Sub: "${ElasticBeanstalkConfigTemplate}"
+      TemplateName: !ImportValue BeanStalkEnvironmentTemplate
 
   
 

@@ -11,4 +11,4 @@ Outputs:
     Description: Key pair to use for the instances
     Value: !Ref AppKeyPair
     Export:
-      Name: KeyPair_Name
+      Name: BankApp-KeyPair

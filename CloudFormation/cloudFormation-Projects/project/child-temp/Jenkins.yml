@@ -1,13 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Parameters:
-  JenkinsInstanceProfile:
-    Description: Grant Jenkins Access on S3 and Elastic Beanstalk
-    Type: String
-    Default: Jenk # SET THE NAME AS THE EXPORT VALUE
-  SGStalkName:
-    Description: Security group for the Jenkins Instance
-    Type: String
-    Default: Jenkins
   KeyName:
     Type: String # GET THE KEYNAME FROM THE MASTER TEMPLATE
   InstanceType:
@@ -24,14 +16,12 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: !Ref InstanceType
-      KeyName: !Ref KeyName
+      KeyName: !ImportValue BankApp-KeyPair
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMI]
+      SubnetId: !ImportValue Pub-Subnet-1-ID
       SecurityGroupIds:
-        - !ImportValue 
-          'Fn::Sub': "${SGStalkName}-SecurityGroupID"
-      IamInstanceProfile:
-        Fn::ImportValue:
-          Fn::Sub: "${JenkinsInstanceProfile}-InstanceProfileName"
+        - !ImportValue Jenkins-SecurityGroupID
+      IamInstanceProfile: !ImportValue Jenk-InstanceProfileName
       UserData:
         Fn::Base64:
           !Sub |

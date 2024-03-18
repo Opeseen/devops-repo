@@ -2,8 +2,8 @@ pipeline{
   agent any
   environment{
     AWS_REGION = 'us-east-1'
-    APPLICATION_NAME = 'JavaBeanstalkApplication'
-    ENVIRONMENT_NAME = 'banking-beanstalk-env'
+    APPLICATION_NAME = 'DemoBankApp'
+    ENVIRONMENT_NAME = 'DemoBankEnv'
     S3_BUCKET = 'springboot-artifacts'
     VERSION_LABEL = "V${BUILD_NUMBER}"
   }

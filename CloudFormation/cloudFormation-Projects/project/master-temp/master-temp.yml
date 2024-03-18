@@ -12,20 +12,24 @@ Parameters:
     Type: AWS::EC2::KeyPair::KeyName
 
 Resources:
-  AuthRoleStalk:
+  # AuthRoleStalk:
+  #   Type: AWS::CloudFormation::Stack
+  #   Properties:
+  #     TemplateURL: https://s3.amazonaws.com/demo-cicd-stack-bucket/demo-stack-folder/AuthRole.yml
+  VPCStalk:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://s3.amazonaws.com/demo-cicd-stack-bucket/demo-stack-folder/AuthRole.yml
+      TemplateURL: https://s3.amazonaws.com/demo-cicd-stack-bucket/demo-stack-folder/vpc.yml
   SecurityGroupStalk:
     Type: AWS::CloudFormation::Stack
-    DependsOn: AuthRoleStalk
+    DependsOn: VPCStalk
     Properties:
       TemplateURL: https://s3.amazonaws.com/demo-cicd-stack-bucket/demo-stack-folder/SG.yml
-  JenkinsInstance:
-    Type: AWS::CloudFormation::Stack
-    DependsOn: SecurityGroupStalk
-    Properties:
-      TemplateURL: https://s3.amazonaws.com/demo-cicd-stack-bucket/demo-stack-folder/Jenkins.yml
-      Parameters:
-        KeyName: !Ref KeyPair
-        InstanceType: !Ref InstanceTypeParameter
+  # JenkinsInstance:
+  #   Type: AWS::CloudFormation::Stack
+  #   DependsOn: SecurityGroupStalk
+  #   Properties:
+  #     TemplateURL: https://s3.amazonaws.com/demo-cicd-stack-bucket/demo-stack-folder/Jenkins.yml
+  #     Parameters:
+  #       KeyName: !Ref KeyPair
+  #       InstanceType: !Ref InstanceTypeParameter

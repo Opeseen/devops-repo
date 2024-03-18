@@ -1,12 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Parameters:
-  DemoAppSG:
-    Description: Security group for the Beanstalk Instance
-    Type: String
-    Default: "sg-07bcc50a3f262a041"
-  KeyPair:
-    Description: demo bank app keypair
-    Type: AWS::EC2::KeyPair::KeyName
   BeanStalkInstanceType:
     Type: String
     Default: t2.micro
@@ -25,13 +18,15 @@ Resources:
       OptionSettings:
       - Namespace: aws:ec2:vpc
         OptionName: VPCId
-        Value: "vpc-020e12aacd5497e91"
+        Value: !ImportValue Vpc-ID
       - Namespace: aws:ec2:vpc
         OptionName: Subnets
-        Value: "subnet-0d245493c5a47cd94,subnet-0e21a28d34d2800fe,subnet-0d9872dcf5778431e"
+        Value: 
+          Fn::Join: [ ",", [ !ImportValue Pub-Subnet-1-ID, !ImportValue Pub-Subnet-2-ID, !ImportValue Pub-Subnet-3-ID ] ]
       - Namespace: aws:ec2:vpc
         OptionName: ELBSubnets
-        Value: "subnet-0d245493c5a47cd94,subnet-0e21a28d34d2800fe,subnet-0d9872dcf5778431e"
+        Value:
+          Fn::Join: [ ",", [ !ImportValue Pub-Subnet-1-ID, !ImportValue Pub-Subnet-2-ID, !ImportValue Pub-Subnet-3-ID ] ]
       - Namespace: aws:autoscaling:asg
         OptionName: MinSize
         Value: "1"
@@ -43,7 +38,7 @@ Resources:
         Value: true
       - Namespace: aws:autoscaling:launchconfiguration
         OptionName: IamInstanceProfile
-        Value: elastic-beanstalk-ins-profile
+        Value: !ImportValue ElasticBeanstalk-InstancProfile-Name
       - Namespace: aws:autoscaling:launchconfiguration
         OptionName: InstanceType 
         Value: !Ref BeanStalkInstanceType
@@ -52,13 +47,13 @@ Resources:
         Value: "gp2"
       - Namespace: aws:autoscaling:launchconfiguration
         OptionName: EC2KeyName
-        Value: !Ref KeyPair
+        Value: !ImportValue BankApp-KeyPair
       - Namespace: aws:autoscaling:launchconfiguration
         OptionName: SecurityGroups
-        Value: !Ref DemoAppSG
+        Value: !ImportValue Jenkins-SecurityGroupID
       - Namespace: aws:elbv2:loadbalancer
         OptionName: SecurityGroups
-        Value: !Ref DemoAppSG
+        Value: !ImportValue Jenkins-SecurityGroupID
       - Namespace: aws:autoscaling:asg
         OptionName: Availability Zones
         Value: "Any 3"

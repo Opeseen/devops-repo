@@ -99,19 +99,23 @@ Resources:
       SubnetId: !Ref PublicSubnetThree
 
 Outputs:
-  VpcId:
+  VpcIdDetails:
     Description: The ID of the VPC Created
     Value: !Ref ApplicationVPC
-    Export: Vpc_ID
+    Export:
+      Name: Vpc-ID
   PublicSubnetOneID:
     Description: The ID of subnet 1
     Value: !Ref PublicSubnetOne
-    Export: Pub_Subnet_1_ID
+    Export:
+      Name: Pub-Subnet-1-ID
   PublicSubnetTwoID:
     Description: The ID of subnet 2
     Value: !Ref PublicSubnetTwo
-    Export: Pub_Subnet_2_ID
+    Export:
+      Name: Pub-Subnet-2-ID
   PublicSubnetThreeID:
     Description: The ID of subnet 3
     Value: !Ref PublicSubnetThree
-    Export: Pub_Subnet_3_ID
+    Export:
+      Name: Pub-Subnet-3-ID
