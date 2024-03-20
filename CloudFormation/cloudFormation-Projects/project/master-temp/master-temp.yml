@@ -9,7 +9,7 @@ Parameters:
     Description: Enter t2.micro, t2.small, or t2.large. Default is t2.micro.
   MyDefaultIpAddress:
     Type: String
-    Default: "105.113.71.24"
+    Default: "105.113.71.24/32"
     Description: My Ip Address for instance connect
 
 Resources:

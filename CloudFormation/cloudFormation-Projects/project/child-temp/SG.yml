@@ -7,6 +7,7 @@ Resources:
   JenkinsSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
+      GroupName: JenkinsInstanceSG
       GroupDescription: Allow 8080(Jenkins) and SSH to connect
       VpcId: !ImportValue Vpc-ID
       SecurityGroupIngress:
@@ -25,6 +26,7 @@ Resources:
   BeanstalkEnvSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
+      GroupName: BeanstalkInstanceSG
       GroupDescription: Allow 22(SSH) only from my ip
       VpcId: !ImportValue Vpc-ID
       SecurityGroupIngress:
@@ -39,6 +41,7 @@ Resources:
   BeanStalkLoadBalancerSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
+      GroupName: BeanstalkLBSG
       GroupDescription: Allow 80(Load balancer) from anywhere
       VpcId: !ImportValue Vpc-ID
       SecurityGroupIngress:
