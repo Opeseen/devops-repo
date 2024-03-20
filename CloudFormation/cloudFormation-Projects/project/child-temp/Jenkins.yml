@@ -1,7 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Parameters:
-  KeyName:
-    Type: String # GET THE KEYNAME FROM THE MASTER TEMPLATE
   InstanceType:
     Type: String
 Mappings: 

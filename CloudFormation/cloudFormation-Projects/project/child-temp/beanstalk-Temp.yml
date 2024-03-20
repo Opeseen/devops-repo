@@ -1,8 +1,7 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Parameters:
-  BeanStalkInstanceType:
+  InstanceType:
     Type: String
-    Default: t2.micro
 
 Resources:
   beanstalkApplication:
@@ -41,7 +40,7 @@ Resources:
         Value: !ImportValue ElasticBeanstalk-InstancProfile-Name
       - Namespace: aws:autoscaling:launchconfiguration
         OptionName: InstanceType 
-        Value: !Ref BeanStalkInstanceType
+        Value: !Ref InstanceType
       - Namespace: aws:autoscaling:launchconfiguration
         OptionName: RootVolumeType
         Value: "gp2"
@@ -50,10 +49,10 @@ Resources:
         Value: !ImportValue BankApp-KeyPair
       - Namespace: aws:autoscaling:launchconfiguration
         OptionName: SecurityGroups
-        Value: !ImportValue Jenkins-SecurityGroupID
+        Value: !ImportValue BeanstalkEnv-SecurityGroupID
       - Namespace: aws:elbv2:loadbalancer
         OptionName: SecurityGroups
-        Value: !ImportValue Jenkins-SecurityGroupID
+        Value: !ImportValue BeanstalkELB-SecurityGroupID
       - Namespace: aws:autoscaling:asg
         OptionName: Availability Zones
         Value: "Any 3"

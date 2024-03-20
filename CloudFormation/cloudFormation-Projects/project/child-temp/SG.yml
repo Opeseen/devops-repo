@@ -1,4 +1,8 @@
 AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  MyIPAddress:
+    Type: String
+
 Resources:
   JenkinsSG:
     Type: AWS::EC2::SecurityGroup
@@ -16,7 +20,40 @@ Resources:
           CidrIp: 0.0.0.0/0
       Tags:
       - Key: "Name"
-        Value: "Bank_App_Jenkins_SG"
+        Value: "bankApp-Jenkins_SG"
+
+  BeanstalkEnvSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow 22(SSH) only from my ip
+      VpcId: !ImportValue Vpc-ID
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref MyIPAddress
+      Tags:
+        - Key: "Name"
+          Value: "BeanStalkEnv_SG"
+
+  BeanStalkLoadBalancerSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow 80(Load balancer) from anywhere
+      VpcId: !ImportValue Vpc-ID
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          FromPort: 0
+          ToPort: 0
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: "Name"
+          Value: "BeanStalkLB_SG"
 
 Outputs:
   JenkinsSGID:
@@ -25,3 +62,13 @@ Outputs:
       - GroupId
     Export:
       Name: Jenkins-SecurityGroupID
+
+  BeanStalkEnvSGID:
+    Value: !GetAtt BeanstalkEnvSG.GroupId
+    Export:
+      Name: BeanstalkEnv-SecurityGroupID
+
+  BeanStalkLBSGID:
+    Value: !GetAtt BeanStalkLoadBalancerSG.GroupId
+    Export:
+      Name: BeanstalkELB-SecurityGroupID
