@@ -6,12 +6,43 @@ def COLOR_MAP = [
 pipeline{
   agent any
   environment{
+    AWS_REGION = 'us-east-1'
+    APPLICATION_NAME = 'DemoBankApp'
+    ENVIRONMENT_NAME = 'DemoBankEnv'
+    S3_BUCKET = 'springboot-artifacts'
     VERSION_LABEL = "V${BUILD_NUMBER}"
   }
   stages{
     stage('Fetch code from GitHub'){
       steps{
         git branch: 'master', url: 'https://github.com/Horpeyemi007/JAVA-WITH-SPRING-BOOT.git'
+      }
+    }
+    stage('Run Test'){
+			steps{
+				sh 'mvn clean test'
+			}
+		}
+		stage('Checkstyle Code Analysis'){
+			steps{
+				sh 'mvn checkstyle:checkstyle'
+			}
+		}
+    stage('Sonar Analysis'){
+      environment {
+				scannerHome = tool 'sonarScanner4'
+			}
+      steps{
+        withSonarQubeEnv('sonarCloud'){
+					sh '${scannerHome}/bin/sonar-scanner \
+					-Dsonar.organization=horpeyemidevops \
+					-Dsonar.projectKey=horpeyemidevops_jenkins-cicd \
+          -Dsonar.sources=src/ \
+					-Dsonar.junit.reportsPath=target/surefire-reports/ \
+					-Dsonar.junit.reportsPath=target/jacoco.exec \
+					-Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
+					-Dsonar.java.binaries=target/test-classes/com/opeyemi/banking/'
+        }
       }
     }
   }

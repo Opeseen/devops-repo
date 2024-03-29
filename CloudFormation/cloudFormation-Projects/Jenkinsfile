@@ -35,7 +35,8 @@ pipeline{
         withSonarQubeEnv('sonarCloud'){
 					sh '${scannerHome}/bin/sonar-scanner \
 					-Dsonar.organization=horpeyemidevops \
-					-Dsonar.projectKey=horpeyemidevops_jenkins-cicd -Dsonar.sources=src/ \
+					-Dsonar.projectKey=horpeyemidevops_jenkins-cicd \
+          -Dsonar.sources=src/ \
 					-Dsonar.junit.reportsPath=target/surefire-reports/ \
 					-Dsonar.junit.reportsPath=target/jacoco.exec \
 					-Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
@@ -65,7 +66,7 @@ pipeline{
     }
     stage('Upload to Beanstalk'){
       steps{
-        withAWS(region:${AWS_REGION}){
+        withAWS(region:"${AWS_REGION}"){
           sh "aws elasticbeanstalk create-application-version --application-name ${APPLICATION_NAME} --version-label ${VERSION_LABEL} --source-bundle S3Bucket=${S3_BUCKET},S3Key=demoApp-${VERSION_LABEL}.jar"
           sh "aws elasticbeanstalk update-environment --application-name ${APPLICATION_NAME} --environment-name ${ENVIRONMENT_NAME} --version-label ${VERSION_LABEL}"
         }
