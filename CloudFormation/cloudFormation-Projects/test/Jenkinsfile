@@ -1,10 +1,11 @@
+def COLOR_MAP = [
+  'SUCCESS': 'good', 
+  'FAILURE': 'danger',
+]
+
 pipeline{
   agent any
   environment{
-    AWS_REGION = 'us-east-1'
-    APPLICATION_NAME = 'DemoBankApp'
-    ENVIRONMENT_NAME = 'DemoBankEnv'
-    S3_BUCKET = 'springboot-artifacts'
     VERSION_LABEL = "V${BUILD_NUMBER}"
   }
   stages{
@@ -13,26 +14,14 @@ pipeline{
         git branch: 'master', url: 'https://github.com/Horpeyemi007/JAVA-WITH-SPRING-BOOT.git'
       }
     }
-    stage('Build'){
-      steps{sh 'mvn clean package'}
-    }
-    stage('Updoad to S3'){
-      steps{
-        sh 'aws s3 cp target/banking-v1.jar s3://${S3_BUCKET}/demoApp-${VERSION_LABEL}.jar'
-      }
-    }
-    stage('Upload to Beanstalk'){
-      steps{
-        withAWS(region:'us-east-1'){
-          sh "aws elasticbeanstalk create-application-version --application-name ${APPLICATION_NAME} --version-label ${VERSION_LABEL} --source-bundle S3Bucket=${S3_BUCKET},S3Key=demoApp-${VERSION_LABEL}.jar"
-          sh "aws elasticbeanstalk update-environment --application-name ${APPLICATION_NAME} --environment-name ${ENVIRONMENT_NAME} --version-label ${VERSION_LABEL}"
-        }
-      }
-    }
   }
-  post{
-    always{
-      echo "Finished......"
+
+  post {
+    always {
+      echo "Slack Notifications."
+      slackSend channel: '#jenkins-cicd',
+      color: COLOR_MAP[currentBuild.currentResult],
+      message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
     }
   }
 }
