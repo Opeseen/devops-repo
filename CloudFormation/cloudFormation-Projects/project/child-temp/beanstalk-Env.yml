@@ -8,8 +8,3 @@ Resources:
       Description: Beanstalk environment setup for Demo Banking App
       EnvironmentName: DemoBankEnv
       TemplateName: !ImportValue BeanStalkEnvironmentTemplate
-
-  
-
-
-
