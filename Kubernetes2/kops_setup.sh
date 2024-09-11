@@ -22,7 +22,7 @@ chmod +x kops
 sudo mv kops /usr/local/bin/kops
 
 # Create a kubernetes cluster config with the kops into S3 bucket
-kops create cluster --name=kubepro.horpedev.online --state=s3://kube-kops-data --zones=us-east-1a \
+kops create cluster --name=kubepro.horpedev.online --state=s3://kube-kops-data --zones=us-east-1b \
  --node-count=1 \
  --node-size=t2.small --control-plane-size=t2.medium \
  --dns-zone=kubepro.horpedev.online --node-volume-size=8 \
