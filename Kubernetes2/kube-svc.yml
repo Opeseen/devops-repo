@@ -38,8 +38,8 @@ metadata:
     app: vproapp
 spec:
   containers:
-    - name: appcontainer
-      image: opeseen/tweenimg:v1
+    - name: nginx
+      image: nginx:1.14.2
       ports:
         - name: vproapp-port
           containerPort: 80
@@ -48,7 +48,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tween-service-elb
+  name: svc-elb
 spec:
   ports:
   - port: 80
