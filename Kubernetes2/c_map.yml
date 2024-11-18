@@ -57,3 +57,52 @@ spec:
       - key: "user-interface.properties"
         path: "user-interface.properties"
         
+---
+apiVersion: v1
+data:
+ another-param: another-value
+ extra-param: extra-value
+ my-config.txt: |
+  # This is a sample config file that I might use to configure an application
+  parameter1 = value1
+  parameter2 = value2
+kind: ConfigMap
+metadata:
+ name: my-config
+ namespace: default
+ resourceVersion: "13556"
+ selfLink: /api/v1/namespaces/default/configmaps/my-config
+ uid: 3641c553-f7de-11e6-98c9-06135271a273
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+ name: kuard-config
+spec:
+ containers:
+  - name: test-container
+    image: gcr.io/kuar-demo/kuard-amd64:blue
+    imagePullPolicy: Always
+    command:
+      - "/kuard"
+      - "$(EXTRA_PARAM)"
+    env:
+      - name: ANOTHER_PARAM
+        valueFrom:
+          configMapKeyRef:
+            name: my-config
+            key: another-param
+      - name: EXTRA_PARAM
+        valueFrom:
+          configMapKeyRef:
+            name: my-config
+            key: extra-param
+    volumeMounts:
+      - name: config-volume
+        mountPath: /config
+ volumes:
+  - name: config-volume
+    configMap:
+      name: my-config
+ restartPolicy: Never
