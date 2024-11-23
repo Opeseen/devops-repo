@@ -15,7 +15,7 @@ spec:
         app: vprodb
     spec:
       containers:
-        - name: nginx
+        - name: vprodb
           image: vprocontainers/vprofiledb
           volumeMounts:
             - mountPath: /var/lib/mysql
@@ -25,7 +25,7 @@ spec:
               containerPort: 3306
           env:
             - name: MYSQL_ROOT_PASSWORD
-              valueFrom::
+              valueFrom:
                 secretKeyRef:
                   name: app-secret
                   key: db-pass

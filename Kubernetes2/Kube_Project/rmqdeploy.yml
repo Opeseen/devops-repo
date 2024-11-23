@@ -20,7 +20,7 @@ spec:
           name: vprormq-port
         env:
         - name: RABBITMQ_DEFAULT_PASS
-          valueFrom::
+          valueFrom:
             secretKeyRef:
               name: app-secret
               key: rmq-pass
